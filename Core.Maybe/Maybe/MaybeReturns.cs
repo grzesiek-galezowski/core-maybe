@@ -8,7 +8,7 @@ namespace Core.Maybe;
 public static class MaybeReturns
 {
   /// <summary>
-  /// Returns <paramref name="a"/>.Value.ToString() or <paramref name="default"/>
+  /// Returns <paramref name="a"/>.Value().ToString() or <paramref name="default"/>
   /// </summary>
   /// <typeparam name="T"></typeparam>
   /// <param name="a"></param>
@@ -20,7 +20,7 @@ public static class MaybeReturns
   }
 
   /// <summary>
-  /// Returns <paramref name="a"/>.Value or throws <paramref name="e"/>()
+  /// Returns <paramref name="a"/>.Value() or throws <paramref name="e"/>()
   /// </summary>
   /// <typeparam name="T"></typeparam>
   /// <param name="a"></param>
@@ -37,7 +37,7 @@ public static class MaybeReturns
   }
 
   /// <summary>
-  /// Returns <paramref name="a"/>.Value or returns <paramref name="default"/>()
+  /// Returns <paramref name="a"/>.Value() or returns <paramref name="default"/>()
   /// </summary>
   /// <typeparam name="T"></typeparam>
   /// <typeparam name="TResult"></typeparam>
@@ -49,7 +49,7 @@ public static class MaybeReturns
     a.HasValue ? a.Value() : @default();
 
   /// <summary>
-  /// Returns <paramref name="a"/>.Value or returns default(<typeparamref name="T"/>)
+  /// Returns <paramref name="a"/>.Value() or returns default(<typeparamref name="T"/>)
   /// </summary>
   /// <typeparam name="T"></typeparam>
   /// <param name="a"></param>
@@ -58,7 +58,7 @@ public static class MaybeReturns
     a.HasValue ? a.Value() : default;
 
   /// <summary>
-  /// Returns <paramref name="a"/>.Value or returns <paramref name="default"/>
+  /// Returns <paramref name="a"/>.Value() or returns <paramref name="default"/>
   /// </summary>
   /// <typeparam name="T"></typeparam>
   /// <typeparam name="TResult"></typeparam>

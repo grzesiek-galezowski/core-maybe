@@ -276,9 +276,9 @@ public static class MaybeEnumerable
   /// <summary>
   /// Combines the current value, if exists, with passed IEnumerable
   /// </summary>
-  /// <typeparam name="T"></typeparam>
-  /// <param name="this"></param>
-  /// <param name="others"></param>
+  /// <typeparam name="T"/>
+  /// <param name="these"/>
+  /// <param name="other"/>
   /// <returns></returns>
   public static IEnumerable<T> Union<T>(this IEnumerable<T> @these, Maybe<T> other) where T : notnull =>
     @these.Union(other.ToEnumerable());

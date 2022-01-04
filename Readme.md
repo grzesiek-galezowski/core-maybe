@@ -81,7 +81,7 @@ int? ok = maybeNumber.ToNullable() ?? maybeAnotherNumber.ToNullable();
 ```cs
 Task<int> two() => Task.FromResult(2);
 var onePlusTwo = await 1.ToMaybe().SelectAsync(async one => one + (await two()));
-Assert.AreEqual(3, onePlusTwo.Value);
+Assert.AreEqual(3, onePlusTwo.Value());
 ```
 ### Extracting values
 

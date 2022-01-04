@@ -1,0 +1,22 @@
+﻿using System.Collections.Generic;
+
+namespace Core.Maybe
+{
+  public static class MaybeCollection
+  {
+    public static Maybe<TValue> MaybeValue<TKey, TValue>(this IReadOnlyDictionary<TKey, TValue?> dictionary,
+      TKey key) where TValue : notnull
+    {
+      var result = dictionary.TryGetValue(key, out var value);
+      return result ? value.Just() : Maybe<TValue>.Nothing;
+    }
+
+    public static Maybe<TValue> MaybeValue<TKey, TValue>(
+      this IDictionary<TKey, TValue?> dictionary,
+      TKey key) where TValue : notnull
+    {
+      var result = dictionary.TryGetValue(key, out var value);
+      return result ? value.Just() : Maybe<TValue>.Nothing;
+    }
+  }
+}

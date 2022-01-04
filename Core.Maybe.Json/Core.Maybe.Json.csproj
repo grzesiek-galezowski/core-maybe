@@ -2,8 +2,28 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <LangVersion>7.3</LangVersion>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <WarningsAsErrors>nullable</WarningsAsErrors>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>2.0.0</Version>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <Authors>Grzegorz Gałęzowski; Andrey Kurnoskin; Andrey Tsvetkov</Authors>
+    <PackageId>Core.Maybe.Json</PackageId>
+    <Company>Core.Maybe</Company>
+    <Description>Core.Maybe.Json — JsonConverter for the Maybe type</Description>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageLicenseUrl></PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/grzesiek-galezowski/core-maybe</PackageProjectUrl>
+    <PackageTags>option, maybe, linq, fluent, functional</PackageTags>
+    <PackageReleaseNotes></PackageReleaseNotes>
+    <Product>Option types for C# with LINQ support and rich fluent syntax for many popular uses</Product>
+    <RepositoryUrl>https://github.com/grzesiek-galezowski/core-maybe</RepositoryUrl>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Copyright>Andrey Kurnoskin; Andrey Tsvetkov 2019, Grzegorz Gałęzowski 2020</Copyright>
+    <PackageLicenseFile>License.txt</PackageLicenseFile>
+    <NeutralLanguage>(None)</NeutralLanguage>
   </PropertyGroup>
 
   <ItemGroup>
@@ -12,6 +32,13 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Core.Maybe\Core.Maybe.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\License.txt">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>

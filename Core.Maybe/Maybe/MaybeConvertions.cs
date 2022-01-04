@@ -9,7 +9,7 @@ namespace Core.Maybe;
 public static class MaybeConvertions
 {
   /// <summary>
-  /// If <paramref name="a"/>.Value exists and can be successfully casted to <typeparamref name="TB"/>, returns the casted one, wrapped as Maybe&lt;TB&gt;, otherwise Nothing
+  /// If <paramref name="a"/>.Value() exists and can be successfully casted to <typeparamref name="TB"/>, returns the casted one, wrapped as Maybe&lt;TB&gt;, otherwise Nothing
   /// </summary>
   /// <typeparam name="TA"></typeparam>
   /// <typeparam name="TB"></typeparam>
@@ -33,7 +33,7 @@ public static class MaybeConvertions
     MaybeFunctionalWrappers.Catcher<T?, TR, InvalidCastException>(o => (TR)o!)(a);
 
   /// <summary>
-  /// If <paramref name="a"/>.Value is present, returns an enumerable of that single value, otherwise an empty one
+  /// If <paramref name="a"/>.Value() is present, returns an enumerable of that single value, otherwise an empty one
   /// </summary>
   /// <typeparam name="T"></typeparam>
   /// <param name="a"></param>
@@ -51,7 +51,7 @@ public static class MaybeConvertions
   /// <param name="a"></param>
   /// <returns></returns>
   public static T? ToNullable<T>(this Maybe<T> a) where T : struct =>
-    a.IsSomething() ? a.Value() : (T?)null;
+    a.IsSomething() ? a.Value() : null;
 
   /// <summary>
   /// Converts Nullable to corresponding Maybe
