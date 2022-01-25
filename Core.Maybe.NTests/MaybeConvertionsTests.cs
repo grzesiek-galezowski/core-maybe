@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System;
+using NUnit.Framework;
 
 namespace Core.Maybe.Tests;
 
@@ -30,6 +31,31 @@ class MaybeConvertionsTests
   {
     var result = (null as string).MaybeCast<string?, string>();
     Assert.AreEqual(Maybe<string>.Nothing, result);
+  }
+
+  [Test]
+  public void ShouldAllowToMaybeWithSelectOnNulls()
+  {
+      var exception = null as Exception;
+      var maybeInnerException = exception.ToMaybe(e => e.InnerException);
+      Assert.AreEqual(Maybe<Exception>.Nothing, maybeInnerException);
+  }
+
+  [Test]
+  public void ShouldAllowToMaybeWithSelectOnNonNullInnerObjects()
+  {
+      var exception = new Exception();
+      var maybeInnerException = exception.ToMaybe(e => e.InnerException);
+      Assert.AreEqual(Maybe<Exception>.Nothing, maybeInnerException);
+  }
+
+  [Test]
+  public void ShouldAllowToMaybeWithSelectOnNonNulls()
+  {
+      var innerException = new Exception();
+      var exception = new Exception("a", innerException);
+      var maybeInnerException = exception.ToMaybe(e => e.InnerException);
+      Assert.AreEqual(innerException.Just(), maybeInnerException);
   }
 
 }

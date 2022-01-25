@@ -70,4 +70,16 @@ public static class MaybeConvertions
   /// <returns></returns>
   public static Maybe<T> ToMaybe<T>(this T? a) where T : notnull =>
     a == null ? default : new Maybe<T>(a);
+
+  /// <summary>
+  /// Returns <paramref name="a"/> wrapped as Maybe
+  /// </summary>
+  /// <typeparam name="T"></typeparam>
+  /// <typeparam name="TResult"></typeparam>
+  /// <param name="a"></param>
+  /// <param name="fn"></param>
+  /// <returns></returns>
+  public static Maybe<TResult> ToMaybe<T, TResult>(this T? a, Func<T, TResult?> fn) 
+      where T : notnull where TResult : notnull =>
+    a == null ? default : new Maybe<T>(a).Select(fn);
 }

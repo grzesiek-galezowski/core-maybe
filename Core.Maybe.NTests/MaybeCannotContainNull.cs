@@ -18,6 +18,6 @@ public class MaybeCannotContainNull
     var maybeUser = user.ToMaybe();
 
     Assert.AreEqual(Maybe<string>.Nothing, maybeUser.Select(_ => _.Name));
-
   }
+ 
 }
