@@ -50,4 +50,7 @@ public static class MaybeBoolean
     else 
       @else();
   }
+
+  public static bool OrFalse(this Maybe<bool> maybe) => maybe.OrElse(false);
+  public static bool OrTrue(this Maybe<bool> maybe) => maybe.OrElse(true);
 }
