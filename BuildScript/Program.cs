@@ -1,8 +1,8 @@
 ﻿using AtmaFileSystem;
 using AtmaFileSystem.IO;
+using BuildScript;
 using FluentAssertions;
 using NScan.Adapters.Secondary.NotifyingSupport;
-using NScan.SharedKernel.WritingProgramOutput.Ports;
 using TddXt.NScan;
 using static Bullseye.Targets;
 using static DotnetExeCommandLineBuilder.DotnetExeCommands;
@@ -23,6 +23,10 @@ Target("Clean", () =>
 {
   Run("dotnet", Clean().Configuration(configuration),
     workingDirectory: root.ToString());
+  if (nugetPath.Exists())
+  {
+      nugetPath.Delete(recursive: true);
+  }
 });
 
 Target("Build", () =>
@@ -59,7 +63,17 @@ Target("Test", DependsOn("NScan"), () =>
     workingDirectory: root.ToString());
 });
 
-Target("Push", DependsOn("Clean", "Test"), () =>
+Target("Pack", DependsOn("Clean", "Test"), () =>
+{
+    Run("dotnet", Pack()
+        .NoBuild()
+        .Configuration(configuration)
+        .WithArg($"-p:VersionPrefix={version}")
+        .Output(nugetPath), 
+        workingDirectory: root.ToString());
+});
+
+Target("Push", DependsOn("Pack"), () =>
 {
   foreach (var nupkgPath in nugetPath.GetFiles("*.nupkg"))
   {
@@ -70,17 +84,3 @@ Target("Push", DependsOn("Clean", "Test"), () =>
 Target("default", DependsOn("Test"));
 
 RunTargetsAndExit(args);
-
-public class ConsoleOutput : INScanOutput
-{
-  public void WriteAnalysisReport(string analysisReport)
-  {
-    Console.WriteLine(analysisReport);
-  }
-
-  public void WriteVersion(string coreVersion)
-  {
-    Console.WriteLine(coreVersion);
-  }
-}
-

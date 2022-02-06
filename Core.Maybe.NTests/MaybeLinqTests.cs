@@ -2,12 +2,12 @@
 
 namespace Core.Maybe.Tests;
 
-class MaybeLinqTests
+internal class MaybeLinqTests
 {
   [Test]
   public void SelectOrElseWithConversionToNullableTest()
   {
-    Maybe<string> maybeString = Maybe<string>.Nothing;
+    var maybeString = Maybe<string>.Nothing;
 
     var alternativeValue = maybeString.SelectOrElse<string, string?>(s => s, () => null);
 

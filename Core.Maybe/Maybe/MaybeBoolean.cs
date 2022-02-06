@@ -35,7 +35,9 @@ public static class MaybeBoolean
   public static void DoWhenTrue(this Maybe<bool> m, Action fn)
   {
     if (m.HasValue && m.Value())
-      fn();
+    {
+        fn();
+    }
   }
   /// <summary>
   /// Calls <paramref name="fn"/> if <paramref name="m"/> is true.ToMaybe()
@@ -46,9 +48,13 @@ public static class MaybeBoolean
   public static void DoWhenTrue(this Maybe<bool> m, Action fn, Action @else)
   {
     if (m.HasValue && m.Value())
-      fn();
-    else 
-      @else();
+    {
+        fn();
+    }
+    else
+    {
+        @else();
+    }
   }
 
   public static bool OrFalse(this Maybe<bool> maybe) => maybe.OrElse(false);

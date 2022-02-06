@@ -7,7 +7,10 @@ namespace Core.Maybe
     public static Maybe<T> Just<T>(this T? value) where T : struct
     {
       if (value.HasValue)
-        return value.Value.ToMaybe();
+      {
+          return value.Value.ToMaybe();
+      }
+
       throw new ArgumentNullException(nameof(value), "Cannot create a Just<" + typeof(T) + "> from null");
     }
 

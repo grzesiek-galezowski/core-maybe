@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -12,9 +12,6 @@
     <PackageReference Include="Bullseye" Version="3.8.0" />
     <PackageReference Include="DotnetExeCommandLineBuilder" Version="0.3.0" />
     <PackageReference Include="FluentAssertions" Version="6.4.0" />
-    <PackageReference Include="FluentAssertions.Analyzers" Version="0.15.0" >
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
     <PackageReference Include="NScan" Version="0.74.0" />
     <PackageReference Include="NScan.Adapters.Secondary" Version="0.74.0" />
     <PackageReference Include="SimpleExec" Version="8.0.0" />

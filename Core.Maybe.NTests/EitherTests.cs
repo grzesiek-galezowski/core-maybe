@@ -66,40 +66,40 @@ public class EitherTests
     var testInt = 0;
     var testString = null as string;
 
-    Action resetTestValues = () =>
+    void ResetTestValues()
     {
-      bool1 = false;
-      bool2 = false;
-      testInt = 0;
-      testString = null;
-    };
+        bool1 = false;
+        bool2 = false;
+        testInt = 0;
+        testString = null;
+    }
 
-    Action setBool1Action = () => bool1 = true;
-    Action setBool2Action = () => bool2 = true;
+    void SetBool1Action() => bool1 = true;
+    void SetBool2Action() => bool2 = true;
 
-    Action<int> setTestInt = value => testInt = value;
-    Action<string> setTestString = value => testString = value;
+    void SetTestInt(int value) => testInt = value;
+    void SetTestString(string value) => testString = value;
 
-    _eitherResult.Match(setBool1Action, setBool2Action);
+    _eitherResult.Match(SetBool1Action, SetBool2Action);
     Assert.IsTrue(bool1);
     Assert.IsFalse(bool2);
 
-    resetTestValues();
-    _eitherError.Match(setBool1Action, setBool2Action);
+    ResetTestValues();
+    _eitherError.Match(SetBool1Action, SetBool2Action);
     Assert.IsFalse(bool1);
     Assert.IsTrue(bool2);
 
-    resetTestValues();
-    _eitherResult.Match(setTestInt, setTestString);
+    ResetTestValues();
+    _eitherResult.Match(SetTestInt, SetTestString);
     Assert.AreEqual(EitherLeftValue, testInt);
     Assert.AreEqual(null, testString);
 
-    resetTestValues();
-    _eitherError.Match(setTestInt, setTestString);
+    ResetTestValues();
+    _eitherError.Match(SetTestInt, SetTestString);
     Assert.AreEqual(0, testInt);
     Assert.AreEqual(EitherRightValue, testString);
 
-    resetTestValues();
+    ResetTestValues();
   }
 
   [Test]
@@ -108,34 +108,34 @@ public class EitherTests
     var testInt = 0;
     var testString = null as string;
 
-    Action resetTestValues = () =>
+    void ResetTestValues()
     {
-      testInt = 0;
-      testString = null;
-    };
+        testInt = 0;
+        testString = null;
+    }
 
-    Func<int, bool> funcTLT = x =>
+    bool FuncTlt(int x)
     {
-      testInt = x;
-      return true;
-    };
+        testInt = x;
+        return true;
+    }
 
-    Func<string, bool> funcTRT = x =>
+    bool FuncTrt(string x)
     {
-      testString = x;
-      return false;
-    };
+        testString = x;
+        return false;
+    }
 
-    Assert.IsTrue(_eitherResult.Match(funcTLT, funcTRT));
+    Assert.IsTrue(_eitherResult.Match(FuncTlt, FuncTrt));
     Assert.AreEqual(EitherLeftValue, testInt);
     Assert.AreEqual(null, testString);
 
-    resetTestValues();
-    Assert.IsFalse(_eitherError.Match(funcTLT, funcTRT));
+    ResetTestValues();
+    Assert.IsFalse(_eitherError.Match(FuncTlt, FuncTrt));
     Assert.AreEqual(EitherRightValue, testString);
     Assert.AreEqual(0, testInt);
 
-    resetTestValues();
+    ResetTestValues();
     Assert.IsTrue(_eitherResult.Match(() => true, () => false));
     Assert.IsFalse(_eitherError.Match(() => true, () => false));
   }

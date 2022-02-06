@@ -32,18 +32,12 @@ public readonly struct Either<TResult, TError>
   /// <summary>
   ///  Constructs new <see cref="Either{TResult, TError}"/> with the Result part defined.
   /// </summary>
-  public static Either<TResult, TError> Result(TResult result)
-  {
-    return new Either<TResult, TError>(result, default, true);
-  }
+  public static Either<TResult, TError> Result(TResult result) => new(result, default, true);
 
   /// <summary>
   ///  Constructs new <see cref="Either{TResult, TError}"/> with the Error part defined.
   /// </summary>
-  public static Either<TResult, TError> Error(TError error)
-  {
-    return new Either<TResult, TError>(default, error, false);
-  }
+  public static Either<TResult, TError> Error(TError error) => new(default, error, false);
 
   /// <summary>
   /// Executes result or error function depending on the Either state.

@@ -96,15 +96,11 @@ public static class MaybeEnumerable
       }
     }
 
-    switch (count)
-    {
-      case 0:
-        return default;
-      case 1:
-        return result.MaybeCast<TE?, T>();
-    }
-
-    return default;
+    return count switch {
+        0 => default,
+        1 => result.MaybeCast<TE?, T>(),
+        _ => default
+    };
   }
 
   /// <summary>
@@ -183,7 +179,9 @@ public static class MaybeEnumerable
     var forced = maybes.ToArray();
     // there has got to be a better way to do this
     if (forced.AnyNothing())
-      return Maybe<IEnumerable<T>>.Nothing;
+    {
+        return Maybe<IEnumerable<T>>.Nothing;
+    }
 
     return forced.Select(m => m.Value()).ToMaybe();
   }
@@ -233,9 +231,14 @@ public static class MaybeEnumerable
     {
       var r = pred(x);
       if (!r.HasValue)
-        return default;
+      {
+          return default;
+      }
+
       if (r.Value())
-        l.Add(x);
+      {
+          l.Add(x);
+      }
     }
     return new Maybe<IEnumerable<T>>(l);
   }

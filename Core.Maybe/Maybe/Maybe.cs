@@ -36,7 +36,11 @@ public readonly struct Maybe<T> : IEquatable<Maybe<T>> where T : notnull
   /// <exception cref="InvalidOperationException"> is thrown if not value is present</exception>
   public T Value()
   {
-    if (!HasValue) throw new InvalidOperationException("value is not present");
+    if (!HasValue)
+    {
+        throw new InvalidOperationException("value is not present");
+    }
+
     return _value!;
   }
 
@@ -49,7 +53,7 @@ public readonly struct Maybe<T> : IEquatable<Maybe<T>> where T : notnull
   public override string ToString() => !HasValue ? "<Nothing>" : Value().ToString();
 
   /// <summary>
-  /// Automatical flattening of the monad-in-monad
+  /// Automatic flattening of the monad-in-monad
   /// </summary>
   /// <param name="doubleMaybe"></param>
   /// <returns></returns>
@@ -67,7 +71,11 @@ public readonly struct Maybe<T> : IEquatable<Maybe<T>> where T : notnull
 
   public override bool Equals(object? obj)
   {
-    if (obj is null) return false;
+    if (obj is null)
+    {
+        return false;
+    }
+
     return obj is Maybe<T> mb && Equals(mb);
   }
 

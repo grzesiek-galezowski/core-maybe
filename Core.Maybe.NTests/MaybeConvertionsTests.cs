@@ -3,7 +3,7 @@ using NUnit.Framework;
 
 namespace Core.Maybe.Tests;
 
-class MaybeConvertionsTests
+internal class MaybeConvertionsTests
 {
   [Test]
   public void MaybeCastConvertsValueToItsMaybe()

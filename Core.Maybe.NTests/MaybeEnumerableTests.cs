@@ -18,7 +18,7 @@ public class MaybeEnumerableTests
     var actual = sequence.WhereValueExist().ToArray();
 
     Assert.AreEqual(expected.Length, actual.Length);
-    for (int i = 0; i < expected.Length; i++)
+    for (var i = 0; i < expected.Length; i++)
     {
       Assert.AreEqual(expected[i], actual[i]);
     }
@@ -30,7 +30,7 @@ public class MaybeEnumerableTests
     var sequence = new[] { "a".ToMaybe(), "b".ToMaybe(), "c".ToMaybe() };
     var expected = new string?[] { null, null, null };
 
-    string?[] actual = sequence.SelectWhereValueExist<string, string?>(s => null).ToArray();
+    var actual = sequence.SelectWhereValueExist<string, string?>(s => null).ToArray();
 
     CollectionAssert.AreEqual(expected, actual);
   }
@@ -238,7 +238,7 @@ public class MaybeEnumerableTests
   {
     var maybe = Maybe<IEnumerable<string?>>.Nothing;
 
-    IEnumerable<string?> result = maybe.FromMaybe();
+    var result = maybe.FromMaybe();
 
     CollectionAssert.IsEmpty(result);
   }
@@ -248,7 +248,7 @@ public class MaybeEnumerableTests
   {
     var maybe = new List<string?>().ToMaybe<IEnumerable<string?>>();
 
-    IEnumerable<string?> result = maybe.FromMaybe();
+    var result = maybe.FromMaybe();
 
     CollectionAssert.IsEmpty(result);
   }
