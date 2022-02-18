@@ -17,7 +17,10 @@ public static class MaybeSideEffects
   public static Maybe<T> Do<T>(this Maybe<T> m, Action<T> fn) where T : notnull
   {
     if (m.IsSomething())
-      fn(m.Value());
+    {
+        fn(m.Value());
+    }
+
     return m;
   }
 
@@ -32,9 +35,14 @@ public static class MaybeSideEffects
   public static Maybe<T> Match<T>(this Maybe<T> m, Action<T> fn, Action @else) where T : notnull
   {
     if (m.IsSomething())
-      fn(m.Value());
+    {
+        fn(m.Value());
+    }
     else
-      @else();
+    {
+        @else();
+    }
+
     return m;
   }
 }

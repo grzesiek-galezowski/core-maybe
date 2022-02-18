@@ -14,10 +14,8 @@ public static class MaybeReturns
   /// <param name="a"></param>
   /// <param name="default"></param>
   /// <returns></returns>
-  public static string ReturnToString<T>(this Maybe<T> a, string @default) where T : notnull
-  {
-    return a.HasValue ? a.Value().ToString() : @default;
-  }
+  public static string ReturnToString<T>(this Maybe<T> a, string @default) where T : notnull 
+      => a.HasValue ? a.Value().ToString() : @default;
 
   /// <summary>
   /// Returns <paramref name="a"/>.Value() or throws <paramref name="e"/>()

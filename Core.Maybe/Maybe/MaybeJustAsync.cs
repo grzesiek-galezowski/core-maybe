@@ -13,11 +13,11 @@ namespace Core.Maybe
     public static async Task<Maybe<T>> JustAsync<T>(this Task<T?> value, [CallerArgumentExpression("value")] string valueOrigin = "") 
       where T : struct 
       => (await value).Just(valueOrigin);
+      
+    public static async Task<Maybe<T>> ToMaybeAsync<T>(this Task<T?> value) where T : notnull
+        => (await value).ToMaybe();
 
-    public static async Task<Maybe<T>> ToMaybeAsync<T>(this Task<T?> value) where T : notnull 
-      => (await value).ToMaybe();
-
-    public static async Task<Maybe<T>> ToMaybeAsync<T>(this Task<T?> value) where T : struct 
-      => (await value).ToMaybe();
+    public static async Task<Maybe<T>> ToMaybeAsync<T>(this Task<T?> value) where T : struct
+        => (await value).ToMaybe();
   }
 }

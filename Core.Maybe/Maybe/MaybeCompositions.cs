@@ -85,7 +85,9 @@ public static class MaybeCompositions
     while (true)
     {
       if (maybe.IsNothing())
-        return acc;
+      {
+          return acc;
+      }
 
       acc.Add(flattenSelector(maybe.Value()));
       maybe = parentSelector(maybe.Value());

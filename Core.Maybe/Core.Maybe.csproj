@@ -3,7 +3,6 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <LangVersion>latest</LangVersion>
-    <Version>2.3.0</Version>
     <Authors>Grzegorz Gałęzowski; Andrey Tsvetkov; William Cassarin</Authors>
     <PackageId>Core.Maybe</PackageId>
     <Copyright>Andrey Tsvetkov; William Cassarin 2015, Grzegorz Gałęzowski 2020</Copyright>
@@ -42,7 +41,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\License.txt">
+    <None Include="../License.txt">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>

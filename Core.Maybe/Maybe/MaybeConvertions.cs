@@ -41,7 +41,9 @@ public static class MaybeConvertions
   public static IEnumerable<T> ToEnumerable<T>(this Maybe<T> a) where T : notnull
   {
     if (a.IsSomething())
-      yield return a.Value();
+    {
+        yield return a.Value();
+    }
   }
 
   /// <summary>

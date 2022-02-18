@@ -3,7 +3,7 @@ using NUnit.Framework;
 
 namespace Core.Maybe.Tests;
 
-class MaybeDictionaryTests
+internal class MaybeDictionaryTests
 {
   [Test]
   public void LookupReturnsNothingWhenThereIsNoNrtValueForKey()

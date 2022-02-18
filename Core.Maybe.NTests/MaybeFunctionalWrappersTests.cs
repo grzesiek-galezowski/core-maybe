@@ -4,7 +4,7 @@ using NUnit.Framework;
 
 namespace Core.Maybe.Tests;
 
-class MaybeFunctionalWrappersTests
+internal class MaybeFunctionalWrappersTests
 {
   [Test]
   public void CatcherFromLambdaReturningNullReturnsNothing()
