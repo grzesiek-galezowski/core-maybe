@@ -1,10 +1,10 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace Core.Maybe.Json
+namespace Core.Maybe.Json;
+
+public class MaybeConverter<T> : JsonConverter<Maybe<T>> where T : notnull
 {
-  public class MaybeConverter<T> : JsonConverter<Maybe<T>> where T : notnull
-  {
     public override void WriteJson(JsonWriter writer, Maybe<T> value, JsonSerializer serializer)
     {
         if (value.HasValue)
@@ -29,16 +29,15 @@ namespace Core.Maybe.Json
 
     public override Maybe<T> ReadJson(JsonReader reader, Type objectType, Maybe<T> existingValue, bool hasExistingValue, JsonSerializer serializer)
     {
-      if (reader.TokenType == JsonToken.Null)
-      {
-        return Maybe<T>.Nothing;
-      }
+        if (reader.TokenType == JsonToken.Null)
+        {
+            return Maybe<T>.Nothing;
+        }
 
-      var previousTypeHandling = serializer.TypeNameHandling;
-      serializer.TypeNameHandling = TypeNameHandling.Auto;
-      var value = serializer.Deserialize<T>(reader);
-      serializer.TypeNameHandling = previousTypeHandling;
-      return value.ToMaybe();
+        var previousTypeHandling = serializer.TypeNameHandling;
+        serializer.TypeNameHandling = TypeNameHandling.Auto;
+        var value = serializer.Deserialize<T>(reader);
+        serializer.TypeNameHandling = previousTypeHandling;
+        return value.ToMaybe();
     }
-  }
 }
