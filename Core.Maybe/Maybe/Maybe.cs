@@ -76,7 +76,11 @@ public readonly struct Maybe<T> : IEquatable<Maybe<T>> where T : notnull
         return false;
     }
 
-    return obj is Maybe<T> mb && Equals(mb);
+    if (obj is not Maybe<T> mb)
+    {
+      return false;
+    }
+    return Equals(mb);
   }
 
   public override int GetHashCode()

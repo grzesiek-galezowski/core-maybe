@@ -12,7 +12,7 @@ public static class MaybeDictionary
   /// <param name="dictionary"></param>
   /// <param name="key"></param>
   /// <returns></returns>
-  public static Maybe<T> Lookup<TK, T>(this IDictionary<TK, T> dictionary, TK key) 
+  public static Maybe<T> Lookup<TK, T>(this IDictionary<TK, T?> dictionary, TK key) 
     where T : notnull
     where TK : notnull => Lookup<TK, T, T>(dictionary!, key);
 
