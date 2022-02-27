@@ -1,1 +1,2 @@
-﻿
+﻿* hasProperty Nullable:enable
+* hasProperty WarningsAsErrors:nullable
