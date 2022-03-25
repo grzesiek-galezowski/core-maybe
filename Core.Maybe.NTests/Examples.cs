@@ -189,7 +189,7 @@ internal class Examples
     }
 
     [Test]
-    public void ShouldAllowPatternMatching()
+    public void ShouldAllowPatternMatchingWithRefType()
     {
         //GIVEN
         if ("a".Just() is var (str))
@@ -217,6 +217,44 @@ internal class Examples
         }
 
         if (Maybe<string>.Nothing is var ())
+        {
+            
+        }
+        else
+        {
+            Assert.Fail();
+        }
+    }
+    
+    [Test]
+    public void ShouldAllowPatternMatchingWithValueType()
+    {
+        //GIVEN
+        if (1.Just() is var (num))
+        {
+            num.Should().Be(1);
+        }
+        else
+        {
+            Assert.Fail();
+        }
+
+        if (1.Just() is var (num1, num2))
+        {
+            Assert.Fail();
+        }
+
+        if (Maybe<int>.Nothing is var (num3))
+        {
+            Assert.Fail();
+        }
+
+        if (Maybe<int>.Nothing is not var (num4))
+        {
+            
+        }
+
+        if (Maybe<int>.Nothing is var ())
         {
             
         }
