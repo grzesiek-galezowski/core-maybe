@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FluentAssertions;
 using NUnit.Framework;
 
@@ -190,6 +187,42 @@ internal class Examples
             Assert.Fail("Boo");
         });
     }
-    
 
+    [Test]
+    public void ShouldAllowPatternMatching()
+    {
+        //GIVEN
+        if ("a".Just() is var (str))
+        {
+            str.Should().Be("a");
+        }
+        else
+        {
+            Assert.Fail();
+        }
+
+        if ("a".Just() is var (str1, str2))
+        {
+            Assert.Fail();
+        }
+
+        if (Maybe<string>.Nothing is var (str3))
+        {
+            Assert.Fail();
+        }
+
+        if (Maybe<string>.Nothing is not var (str4))
+        {
+            
+        }
+
+        if (Maybe<string>.Nothing is var ())
+        {
+            
+        }
+        else
+        {
+            Assert.Fail();
+        }
+    }
 }

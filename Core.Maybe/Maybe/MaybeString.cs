@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Core.Maybe;
+﻿namespace Core.Maybe;
 
 public static class MaybeString
 {

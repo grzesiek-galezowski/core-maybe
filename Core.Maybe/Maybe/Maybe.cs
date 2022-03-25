@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 namespace Core.Maybe;
 
@@ -23,7 +24,7 @@ namespace Core.Maybe;
 /// var result = (from a in list.FirstMaybe() from b in list.LastMaybe() select a + b).OrElse(-5);
 /// </example>
 /// <typeparam name="T"></typeparam>
-public readonly struct Maybe<T> : IEquatable<Maybe<T>> where T : notnull
+public readonly struct Maybe<T> : ITuple, IEquatable<Maybe<T>> where T : notnull
 {
   /// <summary>
   /// Nothing value.
@@ -50,7 +51,7 @@ public readonly struct Maybe<T> : IEquatable<Maybe<T>> where T : notnull
   public bool HasValue { get; }
 
   /// <inheritdoc />
-  public override string ToString() => !HasValue ? "<Nothing>" : Value().ToString();
+  public override string? ToString() => !HasValue ? "<Nothing>" : Value().ToString();
 
   /// <summary>
   /// Automatic flattening of the monad-in-monad
@@ -87,7 +88,14 @@ public readonly struct Maybe<T> : IEquatable<Maybe<T>> where T : notnull
   {
     unchecked
     {
-      return (EqualityComparer<T?>.Default.GetHashCode(_value)*397) ^ HasValue.GetHashCode();
+      if (HasValue)
+      {
+        return (EqualityComparer<T?>.Default.GetHashCode(_value!)*397) ^ HasValue.GetHashCode();
+      }
+      else
+      {
+        return HasValue.GetHashCode();
+      }
     }
   }
 
@@ -98,4 +106,12 @@ public readonly struct Maybe<T> : IEquatable<Maybe<T>> where T : notnull
     !left.Equals(right);
 
   private readonly T? _value;
+
+  public int Length => HasValue ? 1 : 0;
+
+  public object? this[int index] => index switch
+  {
+    0 => HasValue ? Value() : default,
+    _ => default
+  };
 }

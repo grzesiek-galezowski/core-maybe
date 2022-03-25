@@ -25,7 +25,6 @@ namespace Core.Maybe
     [Obsolete("Use .Lookup() method")]
     public static Maybe<TValue> MaybeValue<TKey, TValue>(
       this Dictionary<TKey, TValue?> dictionary,
-      TKey key) where TValue : notnull 
-      => ((IDictionary<TKey, TValue?>)dictionary).MaybeValue(key);
+      TKey key) where TValue : notnull where TKey : notnull => ((IDictionary<TKey, TValue?>)dictionary).MaybeValue(key);
   }
 }

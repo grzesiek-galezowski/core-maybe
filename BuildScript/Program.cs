@@ -9,10 +9,10 @@ using static DotnetExeCommandLineBuilder.DotnetExeCommands;
 using static SimpleExec.Command;
 
 const string configuration = "Release";
-const string version = "2.4.1";
+const string version = "3.0.0";
 
 // Define directories.
-var root = AbsoluteFilePath.OfThisFile().ParentDirectory(1).Value;
+var root = AbsoluteFilePath.OfThisFile().ParentDirectory(1).Value();
 var nugetPath = root.AddDirectoryName("NuGets").AddDirectoryName(configuration);
 
 //////////////////////////////////////////////////////////////////////
@@ -83,4 +83,4 @@ Target("Push", DependsOn("Pack"), () =>
 
 Target("default", DependsOn("Test"));
 
-RunTargetsAndExit(args);
+await RunTargetsAndExitAsync(args);

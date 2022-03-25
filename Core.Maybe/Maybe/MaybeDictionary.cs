@@ -29,7 +29,7 @@ public static class MaybeDictionary
     where TR : notnull, TV
     where TK : notnull
   {
-    var getter = MaybeFunctionalWrappers.Wrap<TK, TV, TR>(dictionary.TryGetValue);
+    var getter = MaybeFunctionalWrappers.Wrap<TK, TV, TR>(dictionary.TryGetValue!); //bug fix this!
     return getter(key);
   }
 }

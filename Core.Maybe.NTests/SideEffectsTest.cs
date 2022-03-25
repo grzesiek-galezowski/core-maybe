@@ -1,6 +1,4 @@
-﻿using System;
-using System.Runtime.CompilerServices;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 namespace Core.Maybe.Tests;
 
