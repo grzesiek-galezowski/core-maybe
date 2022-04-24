@@ -19,6 +19,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionFiles", "SolutionFi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuildScript", "BuildScript\BuildScript.csproj", "{D065537A-1262-4452-8906-02AC0B8B47DD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Maybe.TextJson", "Core.Maybe.TextJson\Core.Maybe.TextJson.csproj", "{088BC83A-25B6-4B75-AC6A-2F3C09DCE066}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{BB126D54-3D67-4ACD-BC7B-AACE4CDB5733}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D065537A-1262-4452-8906-02AC0B8B47DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D065537A-1262-4452-8906-02AC0B8B47DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{088BC83A-25B6-4B75-AC6A-2F3C09DCE066}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{088BC83A-25B6-4B75-AC6A-2F3C09DCE066}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{088BC83A-25B6-4B75-AC6A-2F3C09DCE066}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{088BC83A-25B6-4B75-AC6A-2F3C09DCE066}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

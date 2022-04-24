@@ -27,7 +27,9 @@ public static class MaybeLinq
         : default;
     }
     else
+    {
       return default;
+    }
   }
   /// <summary>
   /// If <paramref name="a"/> has value, applies <paramref name="fn"/> to it and returns the result, otherwise returns <paramref name="else"/>()

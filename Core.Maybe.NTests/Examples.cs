@@ -193,23 +193,13 @@ internal class Examples
     {
         //GIVEN
         if ("a".Just() is var (str))
-        {
             str.Should().Be("a");
-        }
         else
-        {
             Assert.Fail();
-        }
 
-        if ("a".Just() is var (str1, str2))
-        {
-            Assert.Fail();
-        }
+        if ("a".Just() is var (str1, str2)) Assert.Fail();
 
-        if (Maybe<string>.Nothing is var (str3))
-        {
-            Assert.Fail();
-        }
+        if (Maybe<string>.Nothing is var (str3)) Assert.Fail();
 
         if (Maybe<string>.Nothing is not var (str4))
         {
@@ -221,9 +211,7 @@ internal class Examples
             
         }
         else
-        {
             Assert.Fail();
-        }
     }
     
     [Test]
@@ -231,23 +219,13 @@ internal class Examples
     {
         //GIVEN
         if (1.Just() is var (num))
-        {
             num.Should().Be(1);
-        }
         else
-        {
             Assert.Fail();
-        }
 
-        if (1.Just() is var (num1, num2))
-        {
-            Assert.Fail();
-        }
+        if (1.Just() is var (num1, num2)) Assert.Fail();
 
-        if (Maybe<int>.Nothing is var (num3))
-        {
-            Assert.Fail();
-        }
+        if (Maybe<int>.Nothing is var (num3)) Assert.Fail();
 
         if (Maybe<int>.Nothing is not var (num4))
         {
@@ -259,8 +237,6 @@ internal class Examples
             
         }
         else
-        {
             Assert.Fail();
-        }
     }
 }

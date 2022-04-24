@@ -1,9 +1,9 @@
 using System;
-using Core.Maybe.Json;
-using Newtonsoft.Json;
+using System.Text.Json;
+using Core.Maybe.TextJson;
 using NUnit.Framework;
 
-namespace Core.Maybe.Tests.Json;
+namespace Core.Maybe.Tests.System.Text.Json;
 
 [TestFixture]
 public class CanSerializeBothWays
@@ -11,10 +11,9 @@ public class CanSerializeBothWays
   [Test]
   public void CanSerialize()
   {
-    var settings = new JsonSerializerSettings();
+    var settings = new JsonSerializerOptions();
     settings.Converters.Add(new MaybeConverter<string>());
-    var json = JsonConvert.SerializeObject(new MyClass("Test".ToMaybe()), settings);
-
+    var json = JsonSerializer.Serialize(new MyClass("Test".ToMaybe()), settings);
 			
     Assert.AreEqual("{\"Name\":\"Test\"}", json);
   }
@@ -22,10 +21,9 @@ public class CanSerializeBothWays
   [Test]
   public void CanDeSerialize()
   {
-    var settings = new JsonSerializerSettings();
+    var settings = new JsonSerializerOptions();
     settings.Converters.Add(new MaybeConverter<string>());
-    var obj = JsonConvert.DeserializeObject<MyClass>("{\"Name\":\"Test\"}", settings);
-
+    var obj = JsonSerializer.Deserialize<MyClass>("{\"Name\":\"Test\"}", settings);
 			
     Assert.AreEqual("Test".ToMaybe(), (obj ?? throw new Exception()).Name);
   }
@@ -34,13 +32,12 @@ public class CanSerializeBothWays
   [Test]
   public void CanDealWithContainer()
   {
-    var settings = new JsonSerializerSettings();
+    var settings = new JsonSerializerOptions();
     settings.Converters.Add(new MaybeConverter<string>());
-    var obj = JsonConvert.DeserializeObject<MyContainer>(
-      JsonConvert.SerializeObject(new MyContainer(new MyClass("Test".ToMaybe())), settings), 
+    var obj = JsonSerializer.Deserialize<MyContainer>(
+      JsonSerializer.Serialize(new MyContainer(new MyClass("Test".ToMaybe())), settings), 
       settings
     );
-
 			
     Assert.AreEqual("Test".ToMaybe(), (obj ?? throw new Exception()).Something.Name);
   }

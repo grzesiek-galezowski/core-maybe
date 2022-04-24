@@ -11,9 +11,15 @@ public class MaybeEnumeratorTests
     var m = 1.ToMaybe().ToEnumerable();
     var c = 0;
     foreach (var val in m)
+    {
       c++;
+    }
+
     foreach (var val in m)
+    {
       c++;
+    }
+
     Assert.IsTrue(c == 2);
   }
 
@@ -22,7 +28,10 @@ public class MaybeEnumeratorTests
   {
     var gotHere = false;
     foreach (var val in Maybe<bool>.Nothing.ToEnumerable())
+    {
       gotHere = true;
+    }
+
     Assert.IsFalse(gotHere);
   }
 }

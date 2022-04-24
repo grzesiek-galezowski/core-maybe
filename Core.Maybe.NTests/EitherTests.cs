@@ -2,7 +2,6 @@
 using System;
 using Core.Either;
 
-
 namespace Core.Maybe.Tests;
 
 [TestFixture]
@@ -68,10 +67,10 @@ public class EitherTests
 
     void ResetTestValues()
     {
-        bool1 = false;
-        bool2 = false;
-        testInt = 0;
-        testString = null;
+      bool1 = false;
+      bool2 = false;
+      testInt = 0;
+      testString = null;
     }
 
     void SetBool1Action() => bool1 = true;
@@ -110,20 +109,20 @@ public class EitherTests
 
     void ResetTestValues()
     {
-        testInt = 0;
-        testString = null;
+      testInt = 0;
+      testString = null;
     }
 
     bool FuncTlt(int x)
     {
-        testInt = x;
-        return true;
+      testInt = x;
+      return true;
     }
 
     bool FuncTrt(string x)
     {
-        testString = x;
-        return false;
+      testString = x;
+      return false;
     }
 
     Assert.IsTrue(_eitherResult.Match(FuncTlt, FuncTrt));
@@ -179,7 +178,6 @@ public class EitherTests
     Assert.AreEqual(0, eitherError.ResultOrDefault());
   }
 }
-
 
 internal static class AssertExtension
 {

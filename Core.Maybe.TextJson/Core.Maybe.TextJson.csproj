@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
@@ -8,25 +8,20 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <Authors>Grzegorz Gałęzowski; Andrey Kurnoskin; Andrey Tsvetkov</Authors>
-    <PackageId>Core.Maybe.Json</PackageId>
+    <Authors>Grzegorz Gałęzowski</Authors>
+    <PackageId>Core.Maybe.TextJson</PackageId>
     <Company>Core.Maybe</Company>
-    <Description>Core.Maybe.Json — JsonConverter for the Maybe type</Description>
+    <Description>Core.Maybe.TextJson — JsonConverter for the Maybe type (System.Text.Json)</Description>
     <PackageLicenseUrl></PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/grzesiek-galezowski/core-maybe</PackageProjectUrl>
-    <PackageTags>option, maybe, linq, fluent, functional</PackageTags>
+    <PackageTags>option, maybe, linq, fluent, functional, json</PackageTags>
     <PackageReleaseNotes></PackageReleaseNotes>
     <Product>Option types for C# with LINQ support and rich fluent syntax for many popular uses</Product>
     <RepositoryUrl>https://github.com/grzesiek-galezowski/core-maybe</RepositoryUrl>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Copyright>Andrey Kurnoskin; Andrey Tsvetkov 2019, Grzegorz Gałęzowski 2020</Copyright>
+    <Copyright>Grzegorz Gałęzowski 2022</Copyright>
     <PackageLicenseFile>License.txt</PackageLicenseFile>
     <NeutralLanguage>(None)</NeutralLanguage>
   </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Core.Maybe\Core.Maybe.csproj" />
@@ -37,6 +32,10 @@
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Text.Json" Version="6.0.3" />
   </ItemGroup>
 
 </Project>
