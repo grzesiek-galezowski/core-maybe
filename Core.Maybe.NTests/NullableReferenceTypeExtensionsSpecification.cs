@@ -15,10 +15,10 @@ public class NullableReferenceTypeExtensionsSpecification
         await (Task.FromResult<string?>("").OrThrowAsync());
         await this.Awaiting(_ => Task.FromResult<string?>(null).OrThrowAsync())
             .Should().ThrowExactlyAsync<InvalidOperationException>()
-            .WithMessage("Could not convert instance of type System.String? to non-nullable reference type because it is null");
+            .WithMessage("Could not convert the result of {Task.FromResult<string?>(null)} of type System.String? to non-nullable reference type because it is null");
         await Task.FromResult("").OrThrow();
         this.Invoking(_ => (null as string).OrThrow())
             .Should().ThrowExactly<InvalidOperationException>()
-            .WithMessage("Could not convert instance of type System.String? to non-nullable reference type because it is null");
+            .WithMessage("Could not convert the result of {null as string} of type System.String? to non-nullable reference type because it is null");
     }
 }
