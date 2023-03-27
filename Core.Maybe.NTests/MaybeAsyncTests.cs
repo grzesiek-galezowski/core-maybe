@@ -55,7 +55,7 @@ public class MaybeAsyncTests
   {
     var taskOfMaybe = Task.FromResult(Maybe<string>.Nothing);
 
-    var result = await taskOfMaybe.OrElse(null as string);
+    var result = await taskOfMaybe.OrElseNullable(null as string);
 
     Assert.IsNull(result);
   }
@@ -76,7 +76,7 @@ public class MaybeAsyncTests
   {
     var taskOfMaybe = Task.FromResult(Maybe<string>.Nothing);
 
-    var result = await taskOfMaybe.OrElse(() => null as string);
+    var result = await taskOfMaybe.OrElseNullable(() => null);
 
     Assert.IsNull(result);
   }

@@ -25,14 +25,30 @@ public static class MaybeAsync
     var res = await @this;
     return res.HasValue ? res.Value() : await orElse();
   }
-  public static async Task<TResult> OrElse<T, TResult>(this Task<Maybe<T>> @this, TResult orElse) 
-    where T : notnull, TResult
+  
+  public static async Task<T> OrElse<T>(this Task<Maybe<T>> @this, T orElse) 
+    where T : notnull
   {
     var res = await @this;
     return res.HasValue ? res.Value() : orElse;
   }
-  public static async Task<TResult> OrElse<T, TResult>(this Task<Maybe<T>> @this, Func<TResult> orElse) 
-    where T : notnull, TResult
+
+  public static async Task<T?> OrElseNullable<T>(this Task<Maybe<T>> @this, T? orElse) 
+    where T : notnull
+  {
+    var res = await @this;
+    return res.HasValue ? res.Value() : orElse;
+  }
+
+  public static async Task<T> OrElse<T>(this Task<Maybe<T>> @this, Func<T> orElse) 
+    where T : notnull
+  {
+    var res = await @this;
+    return res.HasValue ? res.Value() : orElse();
+  }
+
+  public static async Task<T?> OrElseNullable<T>(this Task<Maybe<T>> @this, Func<T?> orElse) 
+    where T : notnull
   {
     var res = await @this;
     return res.HasValue ? res.Value() : orElse();

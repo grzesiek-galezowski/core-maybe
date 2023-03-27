@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Core.Maybe;
 
@@ -38,12 +39,22 @@ public static class MaybeReturns
   /// Returns <paramref name="a"/>.Value() or returns <paramref name="default"/>()
   /// </summary>
   /// <typeparam name="T"></typeparam>
-  /// <typeparam name="TResult"></typeparam>
   /// <param name="a"></param>
   /// <param name="default"></param>
   /// <returns></returns>
-  public static TResult OrElse<T, TResult>(this Maybe<T> a, Func<TResult> @default)  
-    where T : notnull, TResult =>
+  public static T OrElse<T>(this Maybe<T> a, Func<T> @default)
+    where T : notnull =>
+    a.HasValue ? a.Value() : @default();
+  
+  /// <summary>
+  /// Returns <paramref name="a"/>.Value() or returns <paramref name="default"/>()
+  /// </summary>
+  /// <typeparam name="T"></typeparam>
+  /// <param name="a"></param>
+  /// <param name="default"></param>
+  /// <returns></returns>
+  public static T? OrElseNullable<T>(this Maybe<T> a, Func<T?> @default)
+    where T : notnull =>
     a.HasValue ? a.Value() : @default();
 
   /// <summary>
@@ -59,11 +70,11 @@ public static class MaybeReturns
   /// Returns <paramref name="a"/>.Value() or returns <paramref name="default"/>
   /// </summary>
   /// <typeparam name="T"></typeparam>
-  /// <typeparam name="TResult"></typeparam>
   /// <param name="a"></param>
   /// <param name="default"></param>
   /// <returns></returns>
-  public static TResult OrElse<T, TResult>(this Maybe<T> a, TResult @default) 
-    where T : notnull, TResult =>
+  [return: NotNullIfNotNull(nameof(@default))]
+  public static T? OrElse<T>(this Maybe<T> a, T? @default) 
+    where T : notnull =>
     a.HasValue ? a.Value() : @default;
 }

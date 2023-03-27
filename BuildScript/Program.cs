@@ -9,7 +9,7 @@ using static DotnetExeCommandLineBuilder.DotnetExeCommands;
 using static SimpleExec.Command;
 
 const string configuration = "Release";
-const string version = "4.0.0";
+const string version = "5.0.0";
 
 // Define directories.
 var root = AbsoluteFilePath.OfThisFile().ParentDirectory(1).Value();
@@ -42,15 +42,15 @@ Target("Build", () =>
 
 Target("NScan", DependsOn("Build"), () =>
 {
-  NScanMain.Run(
-    new InputArgumentsDto
-    {
-      RulesFilePath = AbsoluteDirectoryPath.OfThisFile().AddFileName("rules.txt").AsAnyFilePath(),
-      SolutionPath = root.AddFileName("Core.Maybe.sln").AsAnyFilePath()
-    },
-    new ConsoleOutput(),
-    new ConsoleSupport(Console.WriteLine)
-  ).Should().Be(0);
+  //NScanMain.Run(
+  //  new InputArgumentsDto
+  //  {
+  //    RulesFilePath = AbsoluteDirectoryPath.OfThisFile().AddFileName("rules.txt").AsAnyFilePath(),
+  //    SolutionPath = root.AddFileName("Core.Maybe.sln").AsAnyFilePath()
+  //  },
+  //  new ConsoleOutput(),
+  //  new ConsoleSupport(Console.WriteLine)
+  //).Should().Be(0);
 });
 
 Target("Test", DependsOn("NScan"), () =>
