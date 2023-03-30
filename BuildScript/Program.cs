@@ -1,15 +1,11 @@
 ﻿using AtmaFileSystem;
 using AtmaFileSystem.IO;
-using BuildScript;
-using FluentAssertions;
-using NScan.Adapters.Secondary.NotifyingSupport;
-using TddXt.NScan;
 using static Bullseye.Targets;
 using static DotnetExeCommandLineBuilder.DotnetExeCommands;
 using static SimpleExec.Command;
 
 const string configuration = "Release";
-const string version = "5.0.0";
+const string version = "6.0.0";
 
 // Define directories.
 var root = AbsoluteFilePath.OfThisFile().ParentDirectory(1).Value();

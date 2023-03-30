@@ -12,7 +12,19 @@ public static class MaybeDictionary
   /// <param name="dictionary"></param>
   /// <param name="key"></param>
   /// <returns></returns>
-  public static Maybe<T> Lookup<TK, T>(this IDictionary<TK, T?> dictionary, TK key) 
+  public static Maybe<T> LookupNullable<TK, T>(this IDictionary<TK, T?> dictionary, TK key) 
+    where T : notnull
+    where TK : notnull => Lookup<TK, T, T>(dictionary!, key);
+
+  /// <summary>
+  /// Tries to get value from Dictionary safely
+  /// </summary>
+  /// <typeparam name="TK"></typeparam>
+  /// <typeparam name="T"></typeparam>
+  /// <param name="dictionary"></param>
+  /// <param name="key"></param>
+  /// <returns></returns>
+  public static Maybe<T> Lookup<TK, T>(this IDictionary<TK, T> dictionary, TK key) 
     where T : notnull
     where TK : notnull => Lookup<TK, T, T>(dictionary!, key);
 
@@ -29,7 +41,7 @@ public static class MaybeDictionary
     where TR : notnull, TV
     where TK : notnull
   {
-    var getter = MaybeFunctionalWrappers.Wrap<TK, TV, TR>(dictionary.TryGetValue!); //bug fix this!
+    var getter = MaybeFunctionalWrappers.Wrap<TK, TV, TR>(dictionary.TryGetValue);
     return getter(key);
   }
 }

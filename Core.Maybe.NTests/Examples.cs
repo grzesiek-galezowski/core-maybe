@@ -35,9 +35,9 @@ internal class Examples
         };
         //WHEN
         var maybeValue = dictionary.MaybeValue("a");
-        var lookedUp = dictionary.Lookup("a");
+        var lookedUp = dictionary.LookupNullable("a");
         var maybeValue2 = dictionary.MaybeValue("b");
-        var lookedUp2 = dictionary.Lookup("b");
+        var lookedUp2 = dictionary.LookupNullable("b");
         var maybeValue3 = dictionary["a"].ToMaybe(); //throws exception on missing key
 
         //THEN
@@ -46,6 +46,20 @@ internal class Examples
         maybeValue2.Should().Be(Maybe<string>.Nothing);
         lookedUp2.Should().Be(Maybe<string>.Nothing);
         maybeValue3.Should().Be(Maybe<string>.Nothing);
+    }
+    
+    [Test]
+    public void ShouldXXXXXXXXXXXXX21() //bug
+    {
+        //GIVEN
+        var dictionary = new Dictionary<string, string>();
+        //WHEN
+        var lookedUp = dictionary.Lookup("a");
+        var lookedUp2 = dictionary.Lookup("b");
+
+        //THEN
+        lookedUp.Should().Be(Maybe<string>.Nothing);
+        lookedUp2.Should().Be(Maybe<string>.Nothing);
     }
 
     [Test]
