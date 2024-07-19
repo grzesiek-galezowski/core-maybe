@@ -7,12 +7,12 @@ public static class MaybeJustAsync
 {
   public static async Task<Maybe<T>> JustAsync<T>(
     this Task<T?> value,
-    [CallerArgumentExpression("value")] string valueOrigin = "")
+    [CallerArgumentExpression(nameof(value))] string valueOrigin = "")
     where T : notnull
     => (await value).Just(valueOrigin);
 
   public static async Task<Maybe<T>> JustAsync<T>(this Task<T?> value,
-    [CallerArgumentExpression("value")] string valueOrigin = "")
+    [CallerArgumentExpression(nameof(value))] string valueOrigin = "")
     where T : struct
     => (await value).Just(valueOrigin);
 

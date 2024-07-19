@@ -15,7 +15,7 @@ public static class MaybeEnumerable
   /// <typeparam name="T"></typeparam>
   /// <param name="items"></param>
   /// <returns></returns>
-  public static Maybe<T> FirstMaybe<T>(this IEnumerable<T?> items) where T : notnull => 
+  public static Maybe<T> FirstMaybe<T>(this IEnumerable<T?> items) where T : notnull =>
     FirstMaybe<T?, T>(items, arg => true);
 
   /// <summary>
@@ -25,8 +25,8 @@ public static class MaybeEnumerable
   /// <param name="items"></param>
   /// <param name="predicate"></param>
   /// <returns></returns>
-  public static Maybe<T> FirstMaybe<T>(this IEnumerable<T> items, Func<T, bool> predicate) 
-    where T : notnull => 
+  public static Maybe<T> FirstMaybe<T>(this IEnumerable<T> items, Func<T, bool> predicate)
+    where T : notnull =>
     FirstMaybe<T, T>(items, predicate);
 
   /// <summary>
@@ -37,7 +37,7 @@ public static class MaybeEnumerable
   /// <param name="items"></param>
   /// <param name="predicate"></param>
   /// <returns></returns>
-  public static Maybe<T> FirstMaybe<TE, T>(this IEnumerable<TE> items, Func<TE, bool> predicate) 
+  public static Maybe<T> FirstMaybe<TE, T>(this IEnumerable<TE> items, Func<TE, bool> predicate)
     where T : notnull, TE
   {
     foreach (var item in items)
@@ -57,7 +57,7 @@ public static class MaybeEnumerable
   /// <typeparam name="T"></typeparam>
   /// <param name="items"></param>
   /// <returns></returns>
-  public static Maybe<T> SingleMaybe<T>(this IEnumerable<T?> items) where T : notnull => 
+  public static Maybe<T> SingleMaybe<T>(this IEnumerable<T?> items) where T : notnull =>
     SingleMaybe<T?, T>(items, arg => true);
 
   /// <summary>
@@ -78,7 +78,7 @@ public static class MaybeEnumerable
   /// <param name="items"></param>
   /// <param name="predicate"></param>
   /// <returns></returns>
-  public static Maybe<T> SingleMaybe<TE, T>(this IEnumerable<TE> items, Func<TE, bool> predicate) 
+  public static Maybe<T> SingleMaybe<TE, T>(this IEnumerable<TE> items, Func<TE, bool> predicate)
     where T : notnull, TE
   {
     var result = default(TE);
@@ -96,10 +96,11 @@ public static class MaybeEnumerable
       }
     }
 
-    return count switch {
-        0 => default,
-        1 => result.MaybeCast<TE?, T>(),
-        _ => default
+    return count switch
+    {
+      0 => default,
+      1 => result.MaybeCast<TE?, T>(),
+      _ => default
     };
   }
 
@@ -109,7 +110,7 @@ public static class MaybeEnumerable
   /// <typeparam name="T"></typeparam>
   /// <param name="items"></param>
   /// <returns></returns>
-  public static Maybe<T> LastMaybe<T>(this IEnumerable<T?> items) where T : notnull => 
+  public static Maybe<T> LastMaybe<T>(this IEnumerable<T?> items) where T : notnull =>
     LastMaybe<T?, T>(items, arg => true);
 
   /// <summary>
@@ -154,8 +155,8 @@ public static class MaybeEnumerable
   /// <param name="maybeCollection"></param>
   /// <returns></returns>
   public static IEnumerable<T> FromMaybe<T>(this Maybe<IEnumerable<T>> maybeCollection) =>
-    maybeCollection.HasValue ? maybeCollection.Value() : Enumerable.Empty<T>();
-    
+    maybeCollection.HasValue ? maybeCollection.Value() : [];
+
   /// <summary>
   /// For each items that has value, applies <paramref name="selector"/> to it and wraps back as Maybe, for each otherwise remains Nothing
   /// </summary>
@@ -164,7 +165,7 @@ public static class MaybeEnumerable
   /// <param name="maybes"></param>
   /// <param name="selector"></param>
   /// <returns></returns>
-  public static IEnumerable<Maybe<TResult>> Select<T, TResult>(this IEnumerable<Maybe<T>> maybes, Func<T, TResult?> selector) 
+  public static IEnumerable<Maybe<TResult>> Select<T, TResult>(this IEnumerable<Maybe<T>> maybes, Func<T, TResult?> selector)
     where T : notnull where TResult : notnull =>
     maybes.Select(maybe => maybe.Select(selector));
 
@@ -180,7 +181,7 @@ public static class MaybeEnumerable
     // there has got to be a better way to do this
     if (forced.AnyNothing())
     {
-        return Maybe<IEnumerable<T>>.Nothing;
+      return Maybe<IEnumerable<T>>.Nothing;
     }
 
     return forced.Select(m => m.Value()).ToMaybe();
@@ -192,7 +193,7 @@ public static class MaybeEnumerable
   /// <typeparam name="T"></typeparam>
   /// <param name="maybes"></param>
   /// <returns></returns>
-  public static IEnumerable<T> WhereValueExist<T>(this IEnumerable<Maybe<T>> maybes) where T : notnull => 
+  public static IEnumerable<T> WhereValueExist<T>(this IEnumerable<Maybe<T>> maybes) where T : notnull =>
     SelectWhereValueExist(maybes, m => m);
 
   /// <summary>
@@ -232,12 +233,12 @@ public static class MaybeEnumerable
       var r = pred(x);
       if (!r.HasValue)
       {
-          return default;
+        return default;
       }
 
       if (r.Value())
       {
-          l.Add(x);
+        l.Add(x);
       }
     }
     return new Maybe<IEnumerable<T>>(l);

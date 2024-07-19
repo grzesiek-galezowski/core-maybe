@@ -10,7 +10,7 @@ public class ObjectWithMaybeReferenceType
 
   public class SomeData
   {
-    public string Member1 { get; set; } = default!;
-    public string Member2 { get; set; } = default!;
+    public string? Member1 { get; set; }
+    public string? Member2 { get; set; }
   }
 }

@@ -21,7 +21,7 @@ Target("Clean", () =>
     workingDirectory: root.ToString());
   if (nugetPath.Exists())
   {
-      nugetPath.Delete(recursive: true);
+    nugetPath.Delete(recursive: true);
   }
 });
 
@@ -61,12 +61,12 @@ Target("Test", DependsOn("NScan"), () =>
 
 Target("Pack", DependsOn("Clean", "Test"), () =>
 {
-    Run("dotnet", Pack()
-        .NoBuild()
-        .Configuration(configuration)
-        .WithArg($"-p:VersionPrefix={version}")
-        .Output(nugetPath), 
-        workingDirectory: root.ToString());
+  Run("dotnet", Pack()
+      .NoBuild()
+      .Configuration(configuration)
+      .WithArg($"-p:VersionPrefix={version}")
+      .Output(nugetPath),
+      workingDirectory: root.ToString());
 });
 
 Target("Push", DependsOn("Pack"), () =>

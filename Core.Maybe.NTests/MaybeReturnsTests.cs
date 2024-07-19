@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using NUnit.Framework;
 
 namespace Core.Maybe.Tests;
 
@@ -12,27 +11,27 @@ public class MaybeReturnsTests
     //do not inline or 'var' it
     // ReSharper disable once SuggestVarOrType_BuiltInTypes
     string @default = Maybe<string>.Nothing.OrElse("a");
-    Assert.AreEqual("a", @default);
-    Assert.AreEqual("a", Maybe<string>.Nothing.OrElse(() => "a"));
+    ClassicAssert.AreEqual("a", @default);
+    ClassicAssert.AreEqual("a", Maybe<string>.Nothing.OrElse(() => "a"));
   }
 
   [Test]
   public void OrElseTestWhenMaybeIsNothingAndOtherIsNull()
   {
-    Assert.IsNull(Maybe<string>.Nothing.OrElse(null as string));
-    Assert.IsNull(Maybe<string>.Nothing.OrElseNullable(() => null));
+    ClassicAssert.IsNull(Maybe<string>.Nothing.OrElse(null as string));
+    ClassicAssert.IsNull(Maybe<string>.Nothing.OrElseNullable(() => null));
   }
 
   [Test]
   public void OrElseTestWhenMaybeIsNothingAndOtherIsSubclass()
   {
-    Assert.IsInstanceOf<ArrayList>(Maybe<IEnumerable>.Nothing.OrElse(new ArrayList()));
-    Assert.IsInstanceOf<ArrayList>(Maybe<IEnumerable>.Nothing.OrElse(() => new ArrayList()));
+    ClassicAssert.IsInstanceOf<ArrayList>(Maybe<IEnumerable>.Nothing.OrElse(new ArrayList()));
+    ClassicAssert.IsInstanceOf<ArrayList>(Maybe<IEnumerable>.Nothing.OrElse(() => new ArrayList()));
   }
 
   [Test]
   public void OrTestWithDefaultValueWhenMaybeIsNothingAndOtherIsNull()
   {
-    Assert.AreEqual(Maybe<string>.Nothing, Maybe<string>.Nothing.Or(null as string));
+    ClassicAssert.AreEqual(Maybe<string>.Nothing, Maybe<string>.Nothing.Or(null as string));
   }
 }

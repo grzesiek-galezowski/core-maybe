@@ -1,5 +1,4 @@
-﻿using NUnit.Framework;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace Core.Maybe.Tests;
 
@@ -13,7 +12,7 @@ public class MaybeAsyncTests
 
     var onePlusTwo = await 1.ToMaybe().SelectAsync(async one => one + (await Two()));
 
-    Assert.AreEqual(3, onePlusTwo.Value());
+    ClassicAssert.AreEqual(3, onePlusTwo.Value());
   }
 
   [Test]
@@ -23,7 +22,7 @@ public class MaybeAsyncTests
 
     var result = await "a".ToMaybe().SelectAsync(async _ => await GetNull());
 
-    Assert.AreEqual(Maybe<string>.Nothing, result);
+    ClassicAssert.AreEqual(Maybe<string>.Nothing, result);
   }
 
   [Test]
@@ -35,7 +34,7 @@ public class MaybeAsyncTests
       async _ => await GetNull(),
       () => Task.FromResult<string?>("a"));
 
-    Assert.IsNull(result);
+    ClassicAssert.IsNull(result);
   }
 
   [Test]
@@ -47,7 +46,7 @@ public class MaybeAsyncTests
       _ => Task.FromResult<string?>("a"),
       async () => await GetNull());
 
-    Assert.IsNull(result);
+    ClassicAssert.IsNull(result);
   }
 
   [Test]
@@ -57,18 +56,18 @@ public class MaybeAsyncTests
 
     var result = await taskOfMaybe.OrElseNullable(null as string);
 
-    Assert.IsNull(result);
+    ClassicAssert.IsNull(result);
   }
 
   [Test]
-  public async Task OrElseAsyncWithNullAlternativeValueTest() 
+  public async Task OrElseAsyncWithNullAlternativeValueTest()
   {
     var taskOfMaybe = Task.FromResult(Maybe<string>.Nothing);
-		
+
     var result = await taskOfMaybe.OrElseAsync(
       () => Task.FromResult(null as string));
-		
-    Assert.IsNull(result);
+
+    ClassicAssert.IsNull(result);
   }
 
   [Test]
@@ -78,6 +77,6 @@ public class MaybeAsyncTests
 
     var result = await taskOfMaybe.OrElseNullable(() => null);
 
-    Assert.IsNull(result);
+    ClassicAssert.IsNull(result);
   }
 }

@@ -5,7 +5,7 @@ namespace Core.Maybe;
 
 public static class MaybeJust
 {
-  public static Maybe<T> Just<T>(this T? value, [CallerArgumentExpression("value")] string valueOrigin = "")
+  public static Maybe<T> Just<T>(this T? value, [CallerArgumentExpression(nameof(value))] string valueOrigin = "")
     where T : struct
   {
     if (value.HasValue)
@@ -17,7 +17,7 @@ public static class MaybeJust
       $"Cannot create a Just<{typeof(T)}>, because {ValueOrigin(valueOrigin, nameof(value))} is null");
   }
 
-  public static Maybe<T> Just<T>(this T? value, [CallerArgumentExpression("value")] string valueOrigin = "")
+  public static Maybe<T> Just<T>(this T? value, [CallerArgumentExpression(nameof(value))] string valueOrigin = "")
     where T : notnull
   {
     if (value != null)

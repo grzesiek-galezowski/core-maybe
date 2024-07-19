@@ -44,15 +44,9 @@ public readonly struct Either<TResult, TError>
   /// </summary>
   public T Match<T>(Func<TResult, T> resultFunc, Func<TError, T> errorFunc)
   {
-    if (resultFunc == null)
-    {
-      throw new ArgumentNullException(nameof(resultFunc));
-    }
+    ArgumentNullException.ThrowIfNull(resultFunc);
 
-    if (errorFunc == null)
-    {
-      throw new ArgumentNullException(nameof(errorFunc));
-    }
+    ArgumentNullException.ThrowIfNull(errorFunc);
 
     return _success ? resultFunc(_resultValue!) : errorFunc(_errorValue!);
   }
@@ -62,15 +56,8 @@ public readonly struct Either<TResult, TError>
   /// </summary>
   public T Match<T>(Func<T> leftFunc, Func<T> rightFunc)
   {
-    if (leftFunc == null)
-    {
-      throw new ArgumentNullException(nameof(leftFunc));
-    }
-
-    if (rightFunc == null)
-    {
-      throw new ArgumentNullException(nameof(rightFunc));
-    }
+    ArgumentNullException.ThrowIfNull(leftFunc);
+    ArgumentNullException.ThrowIfNull(rightFunc);
 
     return _success ? leftFunc() : rightFunc();
   }
@@ -80,15 +67,8 @@ public readonly struct Either<TResult, TError>
   /// </summary>
   public void Match(Action<TResult> resultAction, Action<TError> errorAction)
   {
-    if (resultAction == null)
-    {
-      throw new ArgumentNullException(nameof(resultAction));
-    }
-
-    if (errorAction == null)
-    {
-      throw new ArgumentNullException(nameof(errorAction));
-    }
+    ArgumentNullException.ThrowIfNull(resultAction);
+    ArgumentNullException.ThrowIfNull(errorAction);
 
     if (_success)
     {
@@ -105,15 +85,9 @@ public readonly struct Either<TResult, TError>
   /// </summary>
   public void Match(Action resultAction, Action errorAction)
   {
-    if (resultAction == null)
-    {
-      throw new ArgumentNullException(nameof(resultAction));
-    }
+    ArgumentNullException.ThrowIfNull(resultAction);
 
-    if (errorAction == null)
-    {
-      throw new ArgumentNullException(nameof(errorAction));
-    }
+    ArgumentNullException.ThrowIfNull(errorAction);
 
     if (_success)
     {
@@ -127,7 +101,7 @@ public readonly struct Either<TResult, TError>
 
   public TResult? ResultOrDefault() => Match<TResult?>(res => res, err => default);
   public TError? ErrorOrDefault() => Match<TError?>(res => default, err => err);
-        
+
   public TResult ResultOrDefault(TResult defaultValue) => Match(res => res, err => defaultValue);
   public TError ErrorOrDefault(TError defaultValue) => Match(res => defaultValue, err => err);
 

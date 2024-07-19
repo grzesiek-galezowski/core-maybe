@@ -28,7 +28,7 @@ public static class MaybeConvertions
   /// <typeparam name="TR"></typeparam>
   /// <param name="a"></param>
   /// <returns></returns>
-  public static Maybe<TR> MaybeCast<T, TR>(this T a) 
+  public static Maybe<TR> MaybeCast<T, TR>(this T a)
     where TR : notnull, T =>
     MaybeFunctionalWrappers.Catcher<T?, TR, InvalidCastException>(o => (TR)o!)(a);
 
@@ -42,7 +42,7 @@ public static class MaybeConvertions
   {
     if (a.IsSomething())
     {
-        yield return a.Value();
+      yield return a.Value();
     }
   }
 
@@ -81,7 +81,7 @@ public static class MaybeConvertions
   /// <param name="a"></param>
   /// <param name="fn"></param>
   /// <returns></returns>
-  public static Maybe<TResult> ToMaybe<T, TResult>(this T? a, Func<T, TResult?> fn) 
+  public static Maybe<TResult> ToMaybe<T, TResult>(this T? a, Func<T, TResult?> fn)
       where T : notnull where TResult : notnull =>
     a == null ? default : new Maybe<T>(a).Select(fn);
 }

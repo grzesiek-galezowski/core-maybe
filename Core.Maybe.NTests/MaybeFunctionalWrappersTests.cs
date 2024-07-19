@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using NUnit.Framework;
+﻿using System.Collections.Generic;
 
 namespace Core.Maybe.Tests;
 
@@ -14,7 +12,7 @@ internal class MaybeFunctionalWrappersTests
 
     var result = catcher("a");
 
-    Assert.AreEqual(Maybe<string>.Nothing, result);
+    ClassicAssert.AreEqual(Maybe<string>.Nothing, result);
   }
 
   [Test]
@@ -26,7 +24,7 @@ internal class MaybeFunctionalWrappersTests
 
     var result = catcher("a");
 
-    Assert.AreEqual(Maybe<string>.Nothing, result);
+    ClassicAssert.AreEqual(Maybe<string>.Nothing, result);
   }
 
   [Test]
@@ -36,7 +34,7 @@ internal class MaybeFunctionalWrappersTests
       .Catcher<string, string?, string, InvalidCastException>(
         _ => throw new Exception());
 
-    Assert.Throws<Exception>(() => catcher("a"));
+    ClassicAssert.Throws<Exception>(() => catcher("a"));
   }
 
   [Test]
@@ -46,7 +44,7 @@ internal class MaybeFunctionalWrappersTests
       .Catcher<string?, string?, string, InvalidCastException>(
         _ => throw new Exception());
 
-    Assert.Throws<Exception>(() => catcher(null));
+    ClassicAssert.Throws<Exception>(() => catcher(null));
   }
 
   [Test]
@@ -57,19 +55,19 @@ internal class MaybeFunctionalWrappersTests
 
     var result = wrapped(null);
 
-    Assert.AreEqual(Maybe<int>.Nothing, result);
+    ClassicAssert.AreEqual(Maybe<int>.Nothing, result);
   }
 
   [Test]
   public void WrapProducesFuncWorkingCorrectlyWithNullOutput()
   {
-    MaybeFunctionalWrappers.TryGet<string, string?> tryGetValue = 
+    MaybeFunctionalWrappers.TryGet<string, string?> tryGetValue =
       new Dictionary<string, string?>().TryGetValue;
     var wrapped = MaybeFunctionalWrappers
       .Wrap<string, string?, string>(tryGetValue);
 
     var result = wrapped("a");
 
-    Assert.AreEqual(Maybe<string>.Nothing, result);
+    ClassicAssert.AreEqual(Maybe<string>.Nothing, result);
   }
 }

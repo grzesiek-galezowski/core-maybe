@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Core.Maybe;
 
@@ -15,7 +16,7 @@ public static class MaybeFunctionalWrappers
   /// <param name="key"></param>
   /// <param name="val"></param>
   /// <returns></returns>
-  public delegate bool TryGet<in T, TR>(T key, out TR val);
+  public delegate bool TryGet<in T, TR>(T key, [MaybeNullWhen(false)] out TR val);
 
   /// <summary>
   /// Converts a standard tryer function (like int.TryParse, Dictionary.TryGetValue etc.) to a function, returning Maybe
@@ -24,7 +25,7 @@ public static class MaybeFunctionalWrappers
   /// <typeparam name="TK"></typeparam>
   /// <param name="tryer"></param>
   /// <returns></returns>
-  public static Func<TK, Maybe<TR>> Wrap<TK, TR>(TryGet<TK, TR> tryer)  
+  public static Func<TK, Maybe<TR>> Wrap<TK, TR>(TryGet<TK, TR> tryer)
     where TR : notnull => Wrap<TK, TR, TR>(tryer);
 
   /// <summary>
@@ -35,8 +36,8 @@ public static class MaybeFunctionalWrappers
   /// <typeparam name="TV"></typeparam>
   /// <param name="tryer"></param>
   /// <returns></returns>
-  public static Func<TK, Maybe<TR>> Wrap<TK, TV, TR>(TryGet<TK, TV> tryer)  
-    where TR : notnull, TV => (TK arg) => 
+  public static Func<TK, Maybe<TR>> Wrap<TK, TV, TR>(TryGet<TK, TV> tryer)
+    where TR : notnull, TV => (TK arg) =>
     tryer(arg, out var result) ? result.MaybeCast<TV, TR>() : Maybe<TR>.Nothing;
 
   /// <summary>
@@ -74,8 +75,8 @@ public static class MaybeFunctionalWrappers
   /// <typeparam name="TF">Func return type</typeparam>
   /// <param name="f"></param>
   /// <returns></returns>
-  public static Func<TA, Maybe<TR>> Catcher<TA, TF, TR, TEx>(Func<TA, TF> f) 
-    where TEx : Exception 
+  public static Func<TA, Maybe<TR>> Catcher<TA, TF, TR, TEx>(Func<TA, TF> f)
+    where TEx : Exception
     where TR : notnull, TF => (TA arg) =>
   {
     try

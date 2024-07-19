@@ -1,6 +1,4 @@
-﻿using NUnit.Framework;
-
-namespace Core.Maybe.Tests;
+﻿namespace Core.Maybe.Tests;
 
 internal class MaybeLinqTests
 {
@@ -11,7 +9,7 @@ internal class MaybeLinqTests
 
     var alternativeValue = maybeString.SelectOrElse<string, string?>(s => s, () => null);
 
-    Assert.IsNull(alternativeValue);
+    ClassicAssert.IsNull(alternativeValue);
   }
 
   [Test]
@@ -20,10 +18,10 @@ internal class MaybeLinqTests
     var maybeString = "a".ToMaybe();
 
     var result = maybeString.SelectMaybe<string, string, string>(
-      s => s.ToMaybe(), 
+      s => s.ToMaybe(),
       (s, s1) => null);
-				
-    Assert.AreEqual(Maybe<string>.Nothing, result);
+
+    ClassicAssert.AreEqual(Maybe<string>.Nothing, result);
   }
 
   [Test]
@@ -32,9 +30,9 @@ internal class MaybeLinqTests
     var maybeString = "a".ToMaybe();
 
     var result = maybeString.SelectMany<string, string, string>(
-      s => s.ToMaybe(), 
+      s => s.ToMaybe(),
       (s, s1) => null);
-				
-    Assert.AreEqual(Maybe<string>.Nothing, result);
+
+    ClassicAssert.AreEqual(Maybe<string>.Nothing, result);
   }
 }

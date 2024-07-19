@@ -1,6 +1,4 @@
-﻿using NUnit.Framework;
-
-namespace Core.Maybe.Tests;
+﻿namespace Core.Maybe.Tests;
 
 [TestFixture]
 public class SideEffectsTest
@@ -10,14 +8,14 @@ public class SideEffectsTest
   {
     var target = "unchanged";
     Maybe<string>.Nothing.Do(_ => target = "changed");
-    Assert.AreEqual("unchanged", target);
+    ClassicAssert.AreEqual("unchanged", target);
   }
   [Test]
   public void DoOnSomething_DoesSomething()
   {
     var target = "unchanged";
     "changed".ToMaybe().Do(_ => target = _);
-    Assert.AreEqual("changed", target);
+    ClassicAssert.AreEqual("changed", target);
   }
 
   [Test]
@@ -26,8 +24,8 @@ public class SideEffectsTest
     var target1 = "unchanged";
     var target2 = "unchanged";
     Maybe<string>.Nothing.Match(_ => target1 = "changed", () => target2 = "changed");
-    Assert.AreEqual("unchanged", target1);
-    Assert.AreEqual("changed", target2);
+    ClassicAssert.AreEqual("unchanged", target1);
+    ClassicAssert.AreEqual("changed", target2);
   }
   [Test]
   public void MatchOnSomething_MatchesSomething()
@@ -35,7 +33,7 @@ public class SideEffectsTest
     var target1 = "unchanged";
     var target2 = "unchanged";
     "κατι".ToMaybe().Match(_ => target1 = "changed", () => target2 = "changed");
-    Assert.AreEqual("changed", target1);
-    Assert.AreEqual("unchanged", target2);
+    ClassicAssert.AreEqual("changed", target1);
+    ClassicAssert.AreEqual("unchanged", target2);
   }
 }

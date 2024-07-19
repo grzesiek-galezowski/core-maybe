@@ -4,13 +4,13 @@ namespace BuildScript;
 
 public class ConsoleOutput : INScanOutput
 {
-    public void WriteAnalysisReport(string analysisReport)
-    {
-        Console.WriteLine(analysisReport);
-    }
+  public void WriteAnalysisReport(string analysisReport)
+  {
+    Console.WriteLine(analysisReport);
+  }
 
-    public void WriteVersion(string coreVersion)
-    {
-        Console.WriteLine(coreVersion);
-    }
+  public void WriteVersion(string coreVersion)
+  {
+    Console.WriteLine(coreVersion);
+  }
 }

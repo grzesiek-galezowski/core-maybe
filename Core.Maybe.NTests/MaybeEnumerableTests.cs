@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using NUnit.Framework;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
@@ -13,14 +11,14 @@ public class MaybeEnumerableTests
   public void WhereValueExist_Should_remove_Nothing_values()
   {
     var sequence = new[] { 1.ToMaybe(), Maybe<int>.Nothing, 2.ToMaybe() };
-    int[] expected = { 1, 2 };
+    int[] expected = [1, 2];
 
     var actual = sequence.WhereValueExist().ToArray();
 
-    Assert.AreEqual(expected.Length, actual.Length);
+    ClassicAssert.AreEqual(expected.Length, actual.Length);
     for (var i = 0; i < expected.Length; i++)
     {
-      Assert.AreEqual(expected[i], actual[i]);
+      ClassicAssert.AreEqual(expected[i], actual[i]);
     }
   }
 
@@ -43,8 +41,8 @@ public class MaybeEnumerableTests
     var three = 3.ToMaybe();
 
     var res = one.Union(two, three);
-    Assert.AreEqual(3, res.Count());
-    Assert.IsTrue(res.SequenceEqual(new[] { 1, 2, 3 }));
+    ClassicAssert.AreEqual(3, res.Count());
+    ClassicAssert.IsTrue(res.SequenceEqual([1, 2, 3]));
   }
 
   [Test]
@@ -69,8 +67,8 @@ public class MaybeEnumerableTests
     var two = Maybe<int>.Nothing;
 
     var res = one.Union(two);
-    Assert.AreEqual(1, res.Count());
-    Assert.IsTrue(res.SequenceEqual(new[] { 1 }));
+    ClassicAssert.AreEqual(1, res.Count());
+    ClassicAssert.IsTrue(res.SequenceEqual([1]));
   }
 
   [Test]
@@ -80,8 +78,8 @@ public class MaybeEnumerableTests
     var two = 2.ToMaybe();
 
     var res = one.Union(two);
-    Assert.AreEqual(3, res.Count());
-    Assert.IsTrue(res.SequenceEqual(new[] { 1, 3, 2 }));
+    ClassicAssert.AreEqual(3, res.Count());
+    ClassicAssert.IsTrue(res.SequenceEqual([1, 3, 2]));
   }
 
   [Test]
@@ -89,7 +87,7 @@ public class MaybeEnumerableTests
   {
     var maybe = Enumerable.Empty<object>().FirstMaybe();
 
-    Assert.IsTrue(maybe.IsNothing());
+    ClassicAssert.IsTrue(maybe.IsNothing());
   }
 
   [Test]
@@ -97,7 +95,7 @@ public class MaybeEnumerableTests
   {
     var maybe = Enumerable.Empty<object?>().FirstMaybe();
 
-    Assert.IsTrue(maybe.IsNothing());
+    ClassicAssert.IsTrue(maybe.IsNothing());
   }
 
   [Test]
@@ -108,7 +106,7 @@ public class MaybeEnumerableTests
 
     var maybe = collection.FirstMaybe(i => i == itemToSearch);
 
-    Assert.IsTrue(maybe.IsNothing());
+    ClassicAssert.IsTrue(maybe.IsNothing());
   }
 
   [Test]
@@ -123,11 +121,11 @@ public class MaybeEnumerableTests
       Tuple.Create(3)
     };
 
-    var maybe = collection.FirstMaybe (i => i.Item1 == 2);
+    var maybe = collection.FirstMaybe(i => i.Item1 == 2);
 
-    Assert.IsTrue(maybe.IsSomething());
+    ClassicAssert.IsTrue(maybe.IsSomething());
     // use AreSame to compare expected value with actual one by reference
-    Assert.AreSame(expectedItem, maybe.Value());
+    ClassicAssert.AreSame(expectedItem, maybe.Value());
   }
 
   [Test]
@@ -135,7 +133,7 @@ public class MaybeEnumerableTests
   {
     var maybe = Enumerable.Empty<object>().SingleMaybe();
 
-    Assert.IsTrue(maybe.IsNothing());
+    ClassicAssert.IsTrue(maybe.IsNothing());
   }
 
   [Test]
@@ -146,7 +144,7 @@ public class MaybeEnumerableTests
 
     var maybe = collection.SingleMaybe(i => i == itemToSearch);
 
-    Assert.IsTrue(maybe.IsNothing());
+    ClassicAssert.IsTrue(maybe.IsNothing());
   }
 
   [Test]
@@ -157,7 +155,7 @@ public class MaybeEnumerableTests
 
     var maybe = collection.SingleMaybe(i => i == itemToSearch);
 
-    Assert.IsTrue(maybe.IsNothing());
+    ClassicAssert.IsTrue(maybe.IsNothing());
   }
 
   [Test]
@@ -168,8 +166,8 @@ public class MaybeEnumerableTests
 
     var maybe = collection.SingleMaybe(i => i == itemToSearch);
 
-    Assert.IsTrue(maybe.IsSomething());
-    Assert.AreEqual(itemToSearch, maybe.Value());
+    ClassicAssert.IsTrue(maybe.IsSomething());
+    ClassicAssert.AreEqual(itemToSearch, maybe.Value());
   }
 
   [Test]
@@ -180,8 +178,8 @@ public class MaybeEnumerableTests
 
     var maybe = collection.SingleMaybe<object, string>(i => i.Equals(itemToSearch));
 
-    Assert.IsTrue(maybe.IsSomething());
-    Assert.AreEqual(itemToSearch, maybe.Value());
+    ClassicAssert.IsTrue(maybe.IsSomething());
+    ClassicAssert.AreEqual(itemToSearch, maybe.Value());
   }
 
   [Test]
@@ -192,7 +190,7 @@ public class MaybeEnumerableTests
 
     var maybe = collection.SingleMaybe<object, Regex>(i => i.Equals(itemToSearch));
 
-    Assert.IsTrue(maybe.IsNothing());
+    ClassicAssert.IsTrue(maybe.IsNothing());
   }
 
   [Test]
@@ -200,7 +198,7 @@ public class MaybeEnumerableTests
   {
     var maybe = Enumerable.Empty<object>().LastMaybe();
 
-    Assert.IsTrue(maybe.IsNothing());
+    ClassicAssert.IsTrue(maybe.IsNothing());
   }
 
   [Test]
@@ -211,7 +209,7 @@ public class MaybeEnumerableTests
 
     var maybe = collection.LastMaybe(i => i == itemToSearch);
 
-    Assert.IsTrue(maybe.IsNothing());
+    ClassicAssert.IsTrue(maybe.IsNothing());
   }
 
   [Test]
@@ -228,9 +226,9 @@ public class MaybeEnumerableTests
 
     var maybe = collection.LastMaybe(i => i.Item1 == 2);
 
-    Assert.IsTrue(maybe.IsSomething());
+    ClassicAssert.IsTrue(maybe.IsSomething());
     // use AreSame to compare expected value with actual one by reference
-    Assert.AreSame(expectedItem, maybe.Value());
+    ClassicAssert.AreSame(expectedItem, maybe.Value());
   }
 
   [Test]

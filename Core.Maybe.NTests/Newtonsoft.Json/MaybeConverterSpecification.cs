@@ -1,8 +1,5 @@
-using System;
 using Core.Maybe.Json;
-using FluentAssertions;
 using Newtonsoft.Json;
-using NUnit.Framework;
 
 namespace Core.Maybe.Tests.Newtonsoft.Json;
 
@@ -12,7 +9,7 @@ public class Tests
 
   [TestCase(null, null)]
   [TestCase("something", "something")]
-  public void ShouldSerializeAndDeserializeComplexDataStructures(string member1, string member2)
+  public void ShouldSerializeAndDeserializeComplexDataStructures(string? member1, string? member2)
   {
     var haveMaybe = new ObjectWithMaybeReferenceType
     {

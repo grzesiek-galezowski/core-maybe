@@ -1,6 +1,4 @@
-﻿using NUnit.Framework;
-
-namespace Core.Maybe.Tests;
+﻿namespace Core.Maybe.Tests;
 
 [TestFixture]
 public class MaybeEnumeratorTests
@@ -20,7 +18,7 @@ public class MaybeEnumeratorTests
       c++;
     }
 
-    Assert.IsTrue(c == 2);
+    ClassicAssert.IsTrue(c == 2);
   }
 
   [Test]
@@ -32,6 +30,6 @@ public class MaybeEnumeratorTests
       gotHere = true;
     }
 
-    Assert.IsFalse(gotHere);
+    ClassicAssert.IsFalse(gotHere);
   }
 }

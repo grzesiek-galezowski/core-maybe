@@ -1,6 +1,5 @@
-﻿using NUnit.Framework;
-using System;
-using Core.Either;
+﻿using Core.Either;
+using FluentAssertions;
 
 namespace Core.Maybe.Tests;
 
@@ -80,23 +79,23 @@ public class EitherTests
     void SetTestString(string value) => testString = value;
 
     _eitherResult.Match(SetBool1Action, SetBool2Action);
-    Assert.IsTrue(bool1);
-    Assert.IsFalse(bool2);
+    ClassicAssert.IsTrue(bool1);
+    ClassicAssert.IsFalse(bool2);
 
     ResetTestValues();
     _eitherError.Match(SetBool1Action, SetBool2Action);
-    Assert.IsFalse(bool1);
-    Assert.IsTrue(bool2);
+    ClassicAssert.IsFalse(bool1);
+    ClassicAssert.IsTrue(bool2);
 
     ResetTestValues();
     _eitherResult.Match(SetTestInt, SetTestString);
-    Assert.AreEqual(EitherLeftValue, testInt);
-    Assert.AreEqual(null, testString);
+    testInt.Should().Be(EitherLeftValue);
+    ClassicAssert.AreEqual(null, testString);
 
     ResetTestValues();
     _eitherError.Match(SetTestInt, SetTestString);
-    Assert.AreEqual(0, testInt);
-    Assert.AreEqual(EitherRightValue, testString);
+    ClassicAssert.AreEqual(0, testInt);
+    ClassicAssert.AreEqual(EitherRightValue, testString);
 
     ResetTestValues();
   }
@@ -125,31 +124,31 @@ public class EitherTests
       return false;
     }
 
-    Assert.IsTrue(_eitherResult.Match(FuncTlt, FuncTrt));
-    Assert.AreEqual(EitherLeftValue, testInt);
-    Assert.AreEqual(null, testString);
+    ClassicAssert.IsTrue(_eitherResult.Match(FuncTlt, FuncTrt));
+    ClassicAssert.AreEqual(EitherLeftValue, testInt);
+    ClassicAssert.AreEqual(null, testString);
 
     ResetTestValues();
-    Assert.IsFalse(_eitherError.Match(FuncTlt, FuncTrt));
-    Assert.AreEqual(EitherRightValue, testString);
-    Assert.AreEqual(0, testInt);
+    ClassicAssert.IsFalse(_eitherError.Match(FuncTlt, FuncTrt));
+    ClassicAssert.AreEqual(EitherRightValue, testString);
+    ClassicAssert.AreEqual(0, testInt);
 
     ResetTestValues();
-    Assert.IsTrue(_eitherResult.Match(() => true, () => false));
-    Assert.IsFalse(_eitherError.Match(() => true, () => false));
+    ClassicAssert.IsTrue(_eitherResult.Match(() => true, () => false));
+    ClassicAssert.IsFalse(_eitherError.Match(() => true, () => false));
   }
 
   [Test]
   public void OrDefaultFunctionsTests()
   {
-    Assert.AreEqual(EitherLeftValue, _eitherResult.ResultOrDefault());
-    Assert.AreEqual(EitherRightValue, _eitherError.ErrorOrDefault());
+    ClassicAssert.AreEqual(EitherLeftValue, _eitherResult.ResultOrDefault());
+    ClassicAssert.AreEqual(EitherRightValue, _eitherError.ErrorOrDefault());
 
-    Assert.AreEqual(0, _eitherError.ResultOrDefault());
-    Assert.AreEqual(default, _eitherResult.ErrorOrDefault());
+    ClassicAssert.AreEqual(0, _eitherError.ResultOrDefault());
+    ClassicAssert.AreEqual(default, _eitherResult.ErrorOrDefault());
 
-    Assert.AreEqual(29, _eitherError.ResultOrDefault(29));
-    Assert.AreEqual("Twenty nine", _eitherResult.ErrorOrDefault("Twenty nine"));
+    ClassicAssert.AreEqual(29, _eitherError.ResultOrDefault(29));
+    ClassicAssert.AreEqual("Twenty nine", _eitherResult.ErrorOrDefault("Twenty nine"));
   }
 
   [Test]
@@ -158,11 +157,11 @@ public class EitherTests
     var eitherResult = Either<string, string>.Result("Left defined");
     var eitherError = Either<string, string>.Error("Right defined");
 
-    Assert.AreEqual("Left defined", eitherResult.ResultOrDefault());
-    Assert.AreEqual("Right defined", eitherError.ErrorOrDefault());
+    ClassicAssert.AreEqual("Left defined", eitherResult.ResultOrDefault());
+    ClassicAssert.AreEqual("Right defined", eitherError.ErrorOrDefault());
 
-    Assert.AreEqual(null, eitherError.ResultOrDefault());
-    Assert.AreEqual(null, eitherResult.ErrorOrDefault());
+    ClassicAssert.AreEqual(null, eitherError.ResultOrDefault());
+    ClassicAssert.AreEqual(null, eitherResult.ErrorOrDefault());
   }
 
   [Test]
@@ -171,11 +170,11 @@ public class EitherTests
     var eitherResult = 29.ToResult<int, string>();
     var eitherError = "Twenty nine".ToError<int, string>();
 
-    Assert.AreEqual(29, eitherResult.ResultOrDefault());
-    Assert.AreEqual(null, eitherResult.ErrorOrDefault());
+    ClassicAssert.AreEqual(29, eitherResult.ResultOrDefault());
+    ClassicAssert.AreEqual(null, eitherResult.ErrorOrDefault());
 
-    Assert.AreEqual("Twenty nine", eitherError.ErrorOrDefault());
-    Assert.AreEqual(0, eitherError.ResultOrDefault());
+    ClassicAssert.AreEqual("Twenty nine", eitherError.ErrorOrDefault());
+    ClassicAssert.AreEqual(0, eitherError.ResultOrDefault());
   }
 }
 

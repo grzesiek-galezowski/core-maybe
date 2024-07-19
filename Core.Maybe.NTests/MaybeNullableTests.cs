@@ -1,7 +1,4 @@
-﻿using NUnit.Framework;
-using System;
-
-namespace Core.Maybe.Tests;
+﻿namespace Core.Maybe.Tests;
 
 [TestFixture]
 public class MaybeNullableTests
@@ -10,6 +7,6 @@ public class MaybeNullableTests
   public void ToNullableTest()
   {
     var nothing = Maybe<Guid>.Nothing;
-    Assert.AreEqual(null, nothing.ToNullable());
+    ClassicAssert.AreEqual(null, nothing.ToNullable());
   }
 }

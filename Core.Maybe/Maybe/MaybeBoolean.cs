@@ -36,7 +36,7 @@ public static class MaybeBoolean
   {
     if (m.HasValue && m.Value())
     {
-        fn();
+      fn();
     }
   }
   /// <summary>
@@ -49,11 +49,11 @@ public static class MaybeBoolean
   {
     if (m.HasValue && m.Value())
     {
-        fn();
+      fn();
     }
     else
     {
-        @else();
+      @else();
     }
   }
 

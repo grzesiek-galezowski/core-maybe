@@ -15,7 +15,7 @@ public static class MaybeReturns
   /// <param name="a"></param>
   /// <param name="default"></param>
   /// <returns></returns>
-  public static string ReturnToString<T>(this Maybe<T> a, string @default) where T : notnull 
+  public static string ReturnToString<T>(this Maybe<T> a, string @default) where T : notnull
       => a.HasValue ? a.Value().ToString() ?? @default : @default;
 
   /// <summary>
@@ -25,7 +25,7 @@ public static class MaybeReturns
   /// <param name="a"></param>
   /// <param name="e"></param>
   /// <returns></returns>
-  public static T OrElse<T>(this Maybe<T> a, Func<Exception> e)  
+  public static T OrElse<T>(this Maybe<T> a, Func<Exception> e)
     where T : notnull
   {
     if (a.IsNothing())
@@ -45,7 +45,7 @@ public static class MaybeReturns
   public static T OrElse<T>(this Maybe<T> a, Func<T> @default)
     where T : notnull =>
     a.HasValue ? a.Value() : @default();
-  
+
   /// <summary>
   /// Returns <paramref name="a"/>.Value() or returns <paramref name="default"/>()
   /// </summary>
@@ -74,7 +74,7 @@ public static class MaybeReturns
   /// <param name="default"></param>
   /// <returns></returns>
   [return: NotNullIfNotNull(nameof(@default))]
-  public static T? OrElse<T>(this Maybe<T> a, T? @default) 
+  public static T? OrElse<T>(this Maybe<T> a, T? @default)
     where T : notnull =>
     a.HasValue ? a.Value() : @default;
 }

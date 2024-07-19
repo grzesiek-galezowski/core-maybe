@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using NUnit.Framework;
 
 namespace Core.Maybe.Tests;
 
@@ -12,7 +11,7 @@ internal class MaybeDictionaryTests
 
     var maybe = dictionary.Lookup<string, string?, string>("a");
 
-    Assert.AreEqual(Maybe<string>.Nothing, maybe);
+    ClassicAssert.AreEqual(Maybe<string>.Nothing, maybe);
   }
 
   [Test]
@@ -25,7 +24,7 @@ internal class MaybeDictionaryTests
 
     var maybe = dictionary.Lookup<string, string?, string>("a");
 
-    Assert.AreEqual(Maybe<string>.Nothing, maybe);
+    ClassicAssert.AreEqual(Maybe<string>.Nothing, maybe);
   }
 
   [Test]
@@ -38,6 +37,6 @@ internal class MaybeDictionaryTests
 
     var maybe = dictionary.Lookup<string, string?, string>("a");
 
-    Assert.AreEqual("b".ToMaybe(), maybe);
+    ClassicAssert.AreEqual("b".ToMaybe(), maybe);
   }
 }

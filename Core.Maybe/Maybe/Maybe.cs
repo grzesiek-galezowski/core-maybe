@@ -39,7 +39,7 @@ public readonly struct Maybe<T> : ITuple, IEquatable<Maybe<T>> where T : notnull
   {
     if (!HasValue)
     {
-        throw new InvalidOperationException("value is not present");
+      throw new InvalidOperationException("value is not present");
     }
 
     return _value!;
@@ -67,14 +67,14 @@ public readonly struct Maybe<T> : ITuple, IEquatable<Maybe<T>> where T : notnull
     HasValue = true;
   }
 
-  public bool Equals(Maybe<T> other) => 
+  public bool Equals(Maybe<T> other) =>
     EqualityComparer<T?>.Default.Equals(_value, other._value) && HasValue.Equals(other.HasValue);
 
   public override bool Equals(object? obj)
   {
     if (obj is null)
     {
-        return false;
+      return false;
     }
 
     if (obj is not Maybe<T> mb)
@@ -90,7 +90,7 @@ public readonly struct Maybe<T> : ITuple, IEquatable<Maybe<T>> where T : notnull
     {
       if (HasValue)
       {
-        return (EqualityComparer<T?>.Default.GetHashCode(_value!)*397) ^ HasValue.GetHashCode();
+        return (EqualityComparer<T?>.Default.GetHashCode(_value!) * 397) ^ HasValue.GetHashCode();
       }
       else
       {

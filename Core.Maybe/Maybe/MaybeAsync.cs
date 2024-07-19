@@ -25,29 +25,29 @@ public static class MaybeAsync
     var res = await @this;
     return res.HasValue ? res.Value() : await orElse();
   }
-  
-  public static async Task<T> OrElse<T>(this Task<Maybe<T>> @this, T orElse) 
+
+  public static async Task<T> OrElse<T>(this Task<Maybe<T>> @this, T orElse)
     where T : notnull
   {
     var res = await @this;
     return res.HasValue ? res.Value() : orElse;
   }
 
-  public static async Task<T?> OrElseNullable<T>(this Task<Maybe<T>> @this, T? orElse) 
+  public static async Task<T?> OrElseNullable<T>(this Task<Maybe<T>> @this, T? orElse)
     where T : notnull
   {
     var res = await @this;
     return res.HasValue ? res.Value() : orElse;
   }
 
-  public static async Task<T> OrElse<T>(this Task<Maybe<T>> @this, Func<T> orElse) 
+  public static async Task<T> OrElse<T>(this Task<Maybe<T>> @this, Func<T> orElse)
     where T : notnull
   {
     var res = await @this;
     return res.HasValue ? res.Value() : orElse();
   }
 
-  public static async Task<T?> OrElseNullable<T>(this Task<Maybe<T>> @this, Func<T?> orElse) 
+  public static async Task<T?> OrElseNullable<T>(this Task<Maybe<T>> @this, Func<T?> orElse)
     where T : notnull
   {
     var res = await @this;
@@ -56,7 +56,7 @@ public static class MaybeAsync
 
   public static async Task<TR> MatchAsync<T, TR>(this Maybe<T> @this,
     Func<T, Task<TR>> res,
-    Func<Task<TR>> orElse)  where T : notnull => @this.HasValue
+    Func<Task<TR>> orElse) where T : notnull => @this.HasValue
     ? await res(@this.Value())
     : await orElse();
 

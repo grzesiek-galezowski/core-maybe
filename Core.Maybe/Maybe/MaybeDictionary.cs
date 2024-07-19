@@ -12,7 +12,7 @@ public static class MaybeDictionary
   /// <param name="dictionary"></param>
   /// <param name="key"></param>
   /// <returns></returns>
-  public static Maybe<T> LookupNullable<TK, T>(this IDictionary<TK, T?> dictionary, TK key) 
+  public static Maybe<T> LookupNullable<TK, T>(this IDictionary<TK, T?> dictionary, TK key)
     where T : notnull
     where TK : notnull => Lookup<TK, T, T>(dictionary!, key);
 
@@ -24,7 +24,7 @@ public static class MaybeDictionary
   /// <param name="dictionary"></param>
   /// <param name="key"></param>
   /// <returns></returns>
-  public static Maybe<T> Lookup<TK, T>(this IDictionary<TK, T> dictionary, TK key) 
+  public static Maybe<T> Lookup<TK, T>(this IDictionary<TK, T> dictionary, TK key)
     where T : notnull
     where TK : notnull => Lookup<TK, T, T>(dictionary!, key);
 
@@ -37,7 +37,7 @@ public static class MaybeDictionary
   /// <param name="dictionary"></param>
   /// <param name="key"></param>
   /// <returns></returns>
-  public static Maybe<TR> Lookup<TK, TV, TR>(this IDictionary<TK, TV> dictionary, TK key) 
+  public static Maybe<TR> Lookup<TK, TV, TR>(this IDictionary<TK, TV> dictionary, TK key)
     where TR : notnull, TV
     where TK : notnull
   {

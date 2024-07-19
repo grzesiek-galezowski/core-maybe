@@ -18,7 +18,7 @@ public static class MaybeSideEffects
   {
     if (m.IsSomething())
     {
-        fn(m.Value());
+      fn(m.Value());
     }
 
     return m;
@@ -36,11 +36,11 @@ public static class MaybeSideEffects
   {
     if (m.IsSomething())
     {
-        fn(m.Value());
+      fn(m.Value());
     }
     else
     {
-        @else();
+      @else();
     }
 
     return m;

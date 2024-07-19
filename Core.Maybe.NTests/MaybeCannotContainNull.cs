@@ -1,6 +1,4 @@
-﻿using NUnit.Framework;
-
-namespace Core.Maybe.Tests;
+﻿namespace Core.Maybe.Tests;
 
 [TestFixture]
 public class MaybeCannotContainNull
@@ -17,7 +15,7 @@ public class MaybeCannotContainNull
 
     var maybeUser = user.ToMaybe();
 
-    Assert.AreEqual(Maybe<string>.Nothing, maybeUser.Select(_ => _.Name));
+    ClassicAssert.AreEqual(Maybe<string>.Nothing, maybeUser.Select(_ => _.Name));
   }
- 
+
 }

@@ -46,8 +46,8 @@ public static class MaybeCompositions
   /// <param name="a"></param>
   /// <param name="b"></param>
   /// <returns></returns>
-  public static Maybe<T2> Compose<T, T2>(this Maybe<T> a, Maybe<T2> b) 
-    where T : notnull where T2 : notnull=>
+  public static Maybe<T2> Compose<T, T2>(this Maybe<T> a, Maybe<T2> b)
+    where T : notnull where T2 : notnull =>
     a.IsNothing() ? Maybe<T2>.Nothing : b;
 
   /// <summary>
@@ -86,7 +86,7 @@ public static class MaybeCompositions
     {
       if (maybe.IsNothing())
       {
-          return acc;
+        return acc;
       }
 
       acc.Add(flattenSelector(maybe.Value()));
