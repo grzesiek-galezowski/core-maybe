@@ -10,9 +10,9 @@ public class MaybeAsyncTests
   {
     static Task<int> Two() => Task.FromResult(2);
 
-    var onePlusTwo = await 1.ToMaybe().SelectAsync(async one => one + (await Two()));
+    var onePlusTwo = await 1.ToMaybe().SelectAsync(async one => one + await Two());
 
-    ClassicAssert.AreEqual(3, onePlusTwo.Value());
+    onePlusTwo.Value().Should().Be(3);
   }
 
   [Test]
@@ -22,7 +22,7 @@ public class MaybeAsyncTests
 
     var result = await "a".ToMaybe().SelectAsync(async _ => await GetNull());
 
-    ClassicAssert.AreEqual(Maybe<string>.Nothing, result);
+    result.Should().Be(Maybe<string>.Nothing);
   }
 
   [Test]
@@ -34,7 +34,7 @@ public class MaybeAsyncTests
       async _ => await GetNull(),
       () => Task.FromResult<string?>("a"));
 
-    ClassicAssert.IsNull(result);
+    result.Should().BeNull();
   }
 
   [Test]
@@ -44,9 +44,9 @@ public class MaybeAsyncTests
 
     var result = await Maybe<string>.Nothing.MatchAsync(
       _ => Task.FromResult<string?>("a"),
-      async () => await GetNull());
+      GetNull);
 
-    ClassicAssert.IsNull(result);
+    result.Should().BeNull();
   }
 
   [Test]
@@ -56,7 +56,7 @@ public class MaybeAsyncTests
 
     var result = await taskOfMaybe.OrElseNullable(null as string);
 
-    ClassicAssert.IsNull(result);
+    result.Should().BeNull();
   }
 
   [Test]
@@ -67,7 +67,7 @@ public class MaybeAsyncTests
     var result = await taskOfMaybe.OrElseAsync(
       () => Task.FromResult(null as string));
 
-    ClassicAssert.IsNull(result);
+    result.Should().BeNull();
   }
 
   [Test]
@@ -77,6 +77,6 @@ public class MaybeAsyncTests
 
     var result = await taskOfMaybe.OrElseNullable(() => null);
 
-    ClassicAssert.IsNull(result);
+    result.Should().BeNull();
   }
 }

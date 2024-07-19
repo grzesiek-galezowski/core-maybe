@@ -12,7 +12,7 @@ internal class MaybeFunctionalWrappersTests
 
     var result = catcher("a");
 
-    ClassicAssert.AreEqual(Maybe<string>.Nothing, result);
+    result.Should().Be(Maybe<string>.Nothing);
   }
 
   [Test]
@@ -24,7 +24,7 @@ internal class MaybeFunctionalWrappersTests
 
     var result = catcher("a");
 
-    ClassicAssert.AreEqual(Maybe<string>.Nothing, result);
+    result.Should().Be(Maybe<string>.Nothing);
   }
 
   [Test]
@@ -34,7 +34,7 @@ internal class MaybeFunctionalWrappersTests
       .Catcher<string, string?, string, InvalidCastException>(
         _ => throw new Exception());
 
-    ClassicAssert.Throws<Exception>(() => catcher("a"));
+    FluentActions.Invoking(() => catcher("a")).Should().ThrowExactly<Exception>();
   }
 
   [Test]
@@ -44,7 +44,7 @@ internal class MaybeFunctionalWrappersTests
       .Catcher<string?, string?, string, InvalidCastException>(
         _ => throw new Exception());
 
-    ClassicAssert.Throws<Exception>(() => catcher(null));
+    FluentActions.Invoking(() => catcher(null)).Should().ThrowExactly<Exception>();
   }
 
   [Test]
@@ -55,7 +55,7 @@ internal class MaybeFunctionalWrappersTests
 
     var result = wrapped(null);
 
-    ClassicAssert.AreEqual(Maybe<int>.Nothing, result);
+    result.Should().Be(Maybe<int>.Nothing);
   }
 
   [Test]
@@ -68,6 +68,6 @@ internal class MaybeFunctionalWrappersTests
 
     var result = wrapped("a");
 
-    ClassicAssert.AreEqual(Maybe<string>.Nothing, result);
+    result.Should().Be(Maybe<string>.Nothing);
   }
 }

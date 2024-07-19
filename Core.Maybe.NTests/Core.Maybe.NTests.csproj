@@ -22,6 +22,10 @@
 		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 		<PackageReference Include="Microsoft.CodeAnalysis.CSharp.Analyzer.Testing.NUnit" Version="1.1.2" />
+		<PackageReference Include="Nullable.Extended.Analyzer" Version="1.15.6169">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
 		<PackageReference Include="nunit" Version="4.1.0" />
 		<PackageReference Include="NUnit.Analyzers" Version="4.2.0">
 		  <PrivateAssets>all</PrivateAssets>

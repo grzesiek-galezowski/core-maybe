@@ -105,10 +105,10 @@ internal class Examples
   public void ShouldXXXXXXXXXXXXX5() //bug
   {
     //bug explain maybe can accept superclasses!!
-    "".ToMaybe<object>().Cast<object, string>().Value().Should().Be("");
+    "".ToMaybe<object>().Cast<object, string>().Value().Should().BeEmpty();
 
     //casting nothings it prohibited!
-    Maybe<object>.Nothing.Invoking(m => m.Cast<object, string>().Value().Should().Be("")).Should().Throw<Exception>();
+    Maybe<object>.Nothing.Invoking(m => m.Cast<object, string>().Value().Should().BeEmpty()).Should().Throw<Exception>();
 
     new List<int>().MaybeCast<object, string>().Should().Be(Maybe<string>.Nothing); //returns nothing on incompatible types
   }
@@ -190,13 +190,10 @@ internal class Examples
   {
     "".Just().Do(Console.WriteLine);
 
-    "".Just().Do(s =>
-    {
-      Console.WriteLine(s);
-    });
+    "".Just().Do(Console.WriteLine);
     (null as string).ToMaybe().Do(s =>
     {
-      ClassicAssert.Fail("Boo");
+      Assert.Fail("Boo");
     });
   }
 
@@ -223,7 +220,7 @@ internal class Examples
 
     }
     else
-      ClassicAssert.Fail();
+      Assert.Fail();
   }
 
   [Test]
@@ -233,7 +230,7 @@ internal class Examples
     if (1.Just() is var (num))
       num.Should().Be(1);
     else
-      ClassicAssert.Fail();
+      Assert.Fail();
 
     if (1.Just() is var (num1, num2)) Assert.Fail();
 
@@ -249,6 +246,6 @@ internal class Examples
 
     }
     else
-      ClassicAssert.Fail();
+      Assert.Fail();
   }
 }

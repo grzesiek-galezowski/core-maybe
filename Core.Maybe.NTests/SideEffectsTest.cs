@@ -8,14 +8,14 @@ public class SideEffectsTest
   {
     var target = "unchanged";
     Maybe<string>.Nothing.Do(_ => target = "changed");
-    ClassicAssert.AreEqual("unchanged", target);
+    target.Should().Be("unchanged");
   }
   [Test]
   public void DoOnSomething_DoesSomething()
   {
     var target = "unchanged";
     "changed".ToMaybe().Do(_ => target = _);
-    ClassicAssert.AreEqual("changed", target);
+    target.Should().Be("changed");
   }
 
   [Test]
@@ -24,8 +24,8 @@ public class SideEffectsTest
     var target1 = "unchanged";
     var target2 = "unchanged";
     Maybe<string>.Nothing.Match(_ => target1 = "changed", () => target2 = "changed");
-    ClassicAssert.AreEqual("unchanged", target1);
-    ClassicAssert.AreEqual("changed", target2);
+    target1.Should().Be("unchanged");
+    target2.Should().Be("changed");
   }
   [Test]
   public void MatchOnSomething_MatchesSomething()
@@ -33,7 +33,7 @@ public class SideEffectsTest
     var target1 = "unchanged";
     var target2 = "unchanged";
     "κατι".ToMaybe().Match(_ => target1 = "changed", () => target2 = "changed");
-    ClassicAssert.AreEqual("changed", target1);
-    ClassicAssert.AreEqual("unchanged", target2);
+    target1.Should().Be("changed");
+    target2.Should().Be("unchanged");
   }
 }

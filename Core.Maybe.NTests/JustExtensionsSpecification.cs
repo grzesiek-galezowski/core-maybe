@@ -1,3 +1,4 @@
+using FluentAssertions;
 using System.Threading.Tasks;
 
 namespace Core.Maybe.Tests;
@@ -8,14 +9,17 @@ public class JustExtensionsSpecification
   public async Task Test1()
   {
     string? nullString = null;
-    ClassicAssert.Throws<ArgumentNullException>(() => nullString.Just());
-    ClassicAssert.AreEqual("a".ToMaybe(), "a".Just());
-    ClassicAssert.AreEqual("a", "a".Just().Value());
-    var exceptionFromJust = Assert.Throws<ArgumentNullException>(() => nullString.Just()).ToMaybe();
-    exceptionFromJust.Value().Message.Should().Be("Cannot create a Just<System.String>, because expression {nullString} is null (Parameter 'value')");
-    ClassicAssert.AreEqual("a", (await Task.FromResult<string?>("a").JustAsync()).Value());
-    ClassicAssert.AreEqual(1, (await Task.FromResult(1).JustAsync()).Value());
-    var argumentNullException = Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(nullString).JustAsync()).ToMaybe();
-    argumentNullException.Value().Message.Should().Be("Cannot create a Just<System.String>, because expression {Task.FromResult(nullString)} is null (Parameter 'value')");
+    FluentActions.Invoking(() => nullString.Just()).Should().ThrowExactly<ArgumentNullException>();
+    "a".Just().Should().Be("a".ToMaybe());
+    "a".Just().Value().Should().Be("a");
+    FluentActions.Invoking(() => nullString.Just())
+      .Should().ThrowExactly<ArgumentNullException>()
+      .WithMessage(
+        "Cannot create a Just<System.String>, because expression {nullString} is null (Parameter 'value')");
+    (await Task.FromResult<string?>("a").JustAsync()).Value().Should().Be("a");
+    (await Task.FromResult(1).JustAsync()).Value().Should().Be(1);
+    await FluentActions.Awaiting(() => Task.FromResult(nullString).JustAsync()).Should()
+      .ThrowExactlyAsync<ArgumentNullException>().WithMessage(
+        "Cannot create a Just<System.String>, because expression {Task.FromResult(nullString)} is null (Parameter 'value')");
   }
 }

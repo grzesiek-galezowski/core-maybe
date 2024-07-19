@@ -15,6 +15,10 @@
     <PackageReference Include="FluentAssertions" Version="6.12.0" />
     <PackageReference Include="NScan" Version="0.201.0" />
     <PackageReference Include="NScan.Adapters.Secondary" Version="0.201.0" />
+    <PackageReference Include="Nullable.Extended.Analyzer" Version="1.15.6169">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="SimpleExec" Version="12.0.0" />
   </ItemGroup>
 

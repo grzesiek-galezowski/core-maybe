@@ -18,7 +18,7 @@ public class MaybeEnumeratorTests
       c++;
     }
 
-    ClassicAssert.IsTrue(c == 2);
+    (c == 2).Should().BeTrue();
   }
 
   [Test]
@@ -30,6 +30,6 @@ public class MaybeEnumeratorTests
       gotHere = true;
     }
 
-    ClassicAssert.IsFalse(gotHere);
+    gotHere.Should().BeFalse();
   }
 }

@@ -15,7 +15,7 @@ public class MaybeCannotContainNull
 
     var maybeUser = user.ToMaybe();
 
-    ClassicAssert.AreEqual(Maybe<string>.Nothing, maybeUser.Select(_ => _.Name));
+    maybeUser.Select(_ => _.Name).Should().Be(Maybe<string>.Nothing);
   }
 
 }

@@ -7,6 +7,6 @@ public class MaybeNullableTests
   public void ToNullableTest()
   {
     var nothing = Maybe<Guid>.Nothing;
-    ClassicAssert.AreEqual(null, nothing.ToNullable());
+    nothing.ToNullable().Should().BeNull();
   }
 }

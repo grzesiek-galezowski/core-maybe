@@ -11,27 +11,27 @@ public class MaybeReturnsTests
     //do not inline or 'var' it
     // ReSharper disable once SuggestVarOrType_BuiltInTypes
     string @default = Maybe<string>.Nothing.OrElse("a");
-    ClassicAssert.AreEqual("a", @default);
-    ClassicAssert.AreEqual("a", Maybe<string>.Nothing.OrElse(() => "a"));
+    @default.Should().Be("a");
+    Maybe<string>.Nothing.OrElse(() => "a").Should().Be("a");
   }
 
   [Test]
   public void OrElseTestWhenMaybeIsNothingAndOtherIsNull()
   {
-    ClassicAssert.IsNull(Maybe<string>.Nothing.OrElse(null as string));
-    ClassicAssert.IsNull(Maybe<string>.Nothing.OrElseNullable(() => null));
+    Maybe<string>.Nothing.OrElse(null as string).Should().BeNull();
+    Maybe<string>.Nothing.OrElseNullable(() => null).Should().BeNull();
   }
 
   [Test]
   public void OrElseTestWhenMaybeIsNothingAndOtherIsSubclass()
   {
-    ClassicAssert.IsInstanceOf<ArrayList>(Maybe<IEnumerable>.Nothing.OrElse(new ArrayList()));
-    ClassicAssert.IsInstanceOf<ArrayList>(Maybe<IEnumerable>.Nothing.OrElse(() => new ArrayList()));
+    Maybe<IEnumerable>.Nothing.OrElse(new ArrayList()).Should().BeOfType<ArrayList>();
+    Maybe<IEnumerable>.Nothing.OrElse(() => new ArrayList()).Should().BeOfType<ArrayList>();
   }
 
   [Test]
   public void OrTestWithDefaultValueWhenMaybeIsNothingAndOtherIsNull()
   {
-    ClassicAssert.AreEqual(Maybe<string>.Nothing, Maybe<string>.Nothing.Or(null as string));
+    Maybe<string>.Nothing.Or(null as string).Should().Be(Maybe<string>.Nothing);
   }
 }

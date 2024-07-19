@@ -6,28 +6,28 @@ internal class MaybeConvertionsTests
   public void MaybeCastConvertsValueToItsMaybe()
   {
     var result = "a".MaybeCast<string, string>();
-    ClassicAssert.AreEqual("a".ToMaybe(), result);
+    result.Should().Be("a".ToMaybe());
   }
 
   [Test]
   public void MaybeCastConvertsValueOfNrtToItsMaybe()
   {
     var result = "a".MaybeCast<string?, string>();
-    ClassicAssert.AreEqual("a".ToMaybe(), result);
+    result.Should().Be("a".ToMaybe());
   }
 
   [Test]
   public void MaybeCastConvertsNonCastableValueOfNrtToNothing()
   {
     var result = "a".MaybeCast<object?, int>();
-    ClassicAssert.AreEqual(Maybe<int>.Nothing, result);
+    result.Should().Be(Maybe<int>.Nothing);
   }
 
   [Test]
   public void MaybeCastConvertsNullToNothing()
   {
     var result = (null as string).MaybeCast<string?, string>();
-    ClassicAssert.AreEqual(Maybe<string>.Nothing, result);
+    result.Should().Be(Maybe<string>.Nothing);
   }
 
   [Test]
@@ -35,7 +35,7 @@ internal class MaybeConvertionsTests
   {
     var exception = null as Exception;
     var maybeInnerException = exception.ToMaybe(e => e.InnerException);
-    ClassicAssert.AreEqual(Maybe<Exception>.Nothing, maybeInnerException);
+    maybeInnerException.Should().Be(Maybe<Exception>.Nothing);
   }
 
   [Test]
@@ -43,7 +43,7 @@ internal class MaybeConvertionsTests
   {
     var exception = new Exception();
     var maybeInnerException = exception.ToMaybe(e => e.InnerException);
-    ClassicAssert.AreEqual(Maybe<Exception>.Nothing, maybeInnerException);
+    maybeInnerException.Should().Be(Maybe<Exception>.Nothing);
   }
 
   [Test]
@@ -52,7 +52,7 @@ internal class MaybeConvertionsTests
     var innerException = new Exception();
     var exception = new Exception("a", innerException);
     var maybeInnerException = exception.ToMaybe(e => e.InnerException);
-    ClassicAssert.AreEqual(innerException.Just(), maybeInnerException);
+    maybeInnerException.Should().Be(innerException.Just());
   }
 
 }

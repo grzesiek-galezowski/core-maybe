@@ -13,7 +13,7 @@ public class CanSerializeBothWays
     settings.Converters.Add(new MaybeConverter<string>());
     var json = JsonConvert.SerializeObject(new MyClass("Test".ToMaybe()), settings);
 
-    ClassicAssert.AreEqual("{\"Name\":\"Test\"}", json);
+    json.Should().Be("{\"Name\":\"Test\"}");
   }
 
   [Test]
@@ -23,7 +23,7 @@ public class CanSerializeBothWays
     settings.Converters.Add(new MaybeConverter<string>());
     var obj = JsonConvert.DeserializeObject<MyClass>("{\"Name\":\"Test\"}", settings);
 
-    ClassicAssert.AreEqual("Test".ToMaybe(), (obj ?? throw new Exception()).Name);
+    (obj ?? throw new Exception()).Name.Should().Be("Test".ToMaybe());
   }
 
   [Test]
@@ -36,7 +36,7 @@ public class CanSerializeBothWays
       settings
     );
 
-    ClassicAssert.AreEqual("Test".ToMaybe(), (obj ?? throw new Exception()).Something.Name);
+    (obj ?? throw new Exception()).Something.Name.Should().Be("Test".ToMaybe());
   }
 }
 

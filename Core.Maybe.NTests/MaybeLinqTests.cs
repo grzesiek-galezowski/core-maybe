@@ -1,6 +1,6 @@
 ﻿namespace Core.Maybe.Tests;
 
-internal class MaybeLinqTests
+file class MaybeLinqTests
 {
   [Test]
   public void SelectOrElseWithConversionToNullableTest()
@@ -9,7 +9,7 @@ internal class MaybeLinqTests
 
     var alternativeValue = maybeString.SelectOrElse<string, string?>(s => s, () => null);
 
-    ClassicAssert.IsNull(alternativeValue);
+    alternativeValue.Should().BeNull();
   }
 
   [Test]
@@ -21,7 +21,7 @@ internal class MaybeLinqTests
       s => s.ToMaybe(),
       (s, s1) => null);
 
-    ClassicAssert.AreEqual(Maybe<string>.Nothing, result);
+    result.Should().Be(Maybe<string>.Nothing);
   }
 
   [Test]
@@ -33,6 +33,6 @@ internal class MaybeLinqTests
       s => s.ToMaybe(),
       (s, s1) => null);
 
-    ClassicAssert.AreEqual(Maybe<string>.Nothing, result);
+    result.Should().Be(Maybe<string>.Nothing);
   }
 }

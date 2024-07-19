@@ -2,7 +2,7 @@
 
 namespace Core.Maybe.Tests;
 
-internal class MaybeDictionaryTests
+file class MaybeDictionaryTests
 {
   [Test]
   public void LookupReturnsNothingWhenThereIsNoNrtValueForKey()
@@ -11,7 +11,7 @@ internal class MaybeDictionaryTests
 
     var maybe = dictionary.Lookup<string, string?, string>("a");
 
-    ClassicAssert.AreEqual(Maybe<string>.Nothing, maybe);
+    maybe.Should().Be(Maybe<string>.Nothing);
   }
 
   [Test]
@@ -24,7 +24,7 @@ internal class MaybeDictionaryTests
 
     var maybe = dictionary.Lookup<string, string?, string>("a");
 
-    ClassicAssert.AreEqual(Maybe<string>.Nothing, maybe);
+    maybe.Should().Be(Maybe<string>.Nothing);
   }
 
   [Test]
@@ -37,6 +37,6 @@ internal class MaybeDictionaryTests
 
     var maybe = dictionary.Lookup<string, string?, string>("a");
 
-    ClassicAssert.AreEqual("b".ToMaybe(), maybe);
+    maybe.Should().Be("b".ToMaybe());
   }
 }
