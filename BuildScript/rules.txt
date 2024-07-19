@@ -1,2 +1,2 @@
 ﻿* hasProperty Nullable:enable
-* hasProperty WarningsAsErrors:nullable
+* hasProperty WarningsAsErrors:nullable;SYSLIB0011
