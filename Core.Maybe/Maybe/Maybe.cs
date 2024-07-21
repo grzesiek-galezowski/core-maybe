@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using Core.NullableReferenceTypesExtensions;
 
 namespace Core.Maybe;
 
@@ -37,12 +38,15 @@ public readonly struct Maybe<T> : ITuple, IEquatable<Maybe<T>> where T : notnull
   /// <exception cref="InvalidOperationException"> is thrown if not value is present</exception>
   public T Value()
   {
-    if (!HasValue)
+    if (HasValue)
+    {
+      return _value.OrThrow();
+    }
+    else
     {
       throw new InvalidOperationException("value is not present");
     }
 
-    return _value!;
   }
 
   /// <summary>
@@ -90,7 +94,7 @@ public readonly struct Maybe<T> : ITuple, IEquatable<Maybe<T>> where T : notnull
     {
       if (HasValue)
       {
-        return (EqualityComparer<T?>.Default.GetHashCode(_value!) * 397) ^ HasValue.GetHashCode();
+        return (EqualityComparer<T?>.Default.GetHashCode(_value.OrThrow()) * 397) ^ HasValue.GetHashCode();
       }
       else
       {

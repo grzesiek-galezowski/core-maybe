@@ -30,7 +30,7 @@ public static class MaybeConvertions
   /// <returns></returns>
   public static Maybe<TR> MaybeCast<T, TR>(this T a)
     where TR : notnull, T =>
-    MaybeFunctionalWrappers.Catcher<T?, TR, InvalidCastException>(o => (TR)o!)(a);
+    MaybeFunctionalWrappers.Catcher<T, TR, InvalidCastException>(o => (TR?)o)(a);
 
   /// <summary>
   /// If <paramref name="a"/>.Value() is present, returns an enumerable of that single value, otherwise an empty one

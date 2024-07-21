@@ -15,7 +15,7 @@ public class MaybeEnumerableTests
 
     var actual = sequence.WhereValueExist().ToArray();
 
-    actual.Length.Should().Be(expected.Length);
+    actual.Should().HaveCount(expected.Length);
     for (var i = 0; i < expected.Length; i++)
     {
       actual[i].Should().Be(expected[i]);
@@ -41,7 +41,7 @@ public class MaybeEnumerableTests
     var three = 3.ToMaybe();
 
     var res = one.Union(two, three);
-    res.Count().Should().Be(3);
+    res.Should().HaveCount(3);
     res.SequenceEqual([1, 2, 3]).Should().BeTrue();
   }
 
@@ -66,7 +66,7 @@ public class MaybeEnumerableTests
     var two = Maybe<int>.Nothing;
 
     var res = one.Union(two);
-    res.Count().Should().Be(1);
+    res.Should().ContainSingle();
     res.SequenceEqual([1]).Should().BeTrue();
   }
 
@@ -77,7 +77,7 @@ public class MaybeEnumerableTests
     var two = 2.ToMaybe();
 
     var res = one.Union(two);
-    res.Count().Should().Be(3);
+    res.Should().HaveCount(3);
     res.SequenceEqual([1, 3, 2]).Should().BeTrue();
   }
 

@@ -41,24 +41,24 @@ public static class MaybeFunctionalWrappers
     tryer(arg, out var result) ? result.MaybeCast<TV, TR>() : Maybe<TR>.Nothing;
 
   /// <summary>
-  /// Returns a function which calls <paramref name="f"/>, wrapped inside a try-catch clause with <typeparamref name="TEx"/> catched. 
-  /// That new function returns Nothing in the case of the <typeparamref name="TEx"/> thrown inside <paramref name="f"/>, otherwise it returns the f-result as Maybe
+  /// Returns a function which calls <paramref name="convert"/>, wrapped inside a try-catch clause with <typeparamref name="TException"/> catched. 
+  /// That new function returns Nothing in the case of the <typeparamref name="TException"/> thrown inside <paramref name="convert"/>, otherwise it returns the convert-result as Maybe
   /// </summary>
-  /// <typeparam name="TA"></typeparam>
-  /// <typeparam name="TR"></typeparam>
-  /// <typeparam name="TEx"></typeparam>
-  /// <param name="f"></param>
+  /// <typeparam name="TOriginal"></typeparam>
+  /// <typeparam name="TResult"></typeparam>
+  /// <typeparam name="TException"></typeparam>
+  /// <param name="convert"></param>
   /// <returns></returns>
-  public static Func<TA, Maybe<TR>> Catcher<TA, TR, TEx>(Func<TA, TR> f)
-    where TEx : Exception where TR : notnull
+  public static Func<TOriginal, Maybe<TResult>> Catcher<TOriginal, TResult, TException>(Func<TOriginal, TResult?> convert)
+    where TException : Exception where TResult : notnull
   {
-    return (TA arg) =>
+    return arg =>
     {
       try
       {
-        return f(arg).ToMaybe();
+        return convert(arg).ToMaybe();
       }
-      catch (TEx)
+      catch (TException)
       {
         return default;
       }

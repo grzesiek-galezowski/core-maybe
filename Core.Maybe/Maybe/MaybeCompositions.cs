@@ -78,7 +78,7 @@ public static class MaybeCompositions
     maybe.FlattenSelect(parentSelector, x => x);
 
   private static IEnumerable<TFlatten> FlattenSelect<TMaybe, TFlatten>(this Maybe<TMaybe> maybe, Func<TMaybe, Maybe<TMaybe>> parentSelector, Func<TMaybe, TFlatten> flattenSelector) where TMaybe : notnull =>
-    maybe.Flatten(parentSelector, new List<TFlatten>(), flattenSelector);
+    maybe.Flatten(parentSelector, [], flattenSelector);
 
   private static IEnumerable<TFlatten> Flatten<TMaybe, TFlatten>(this Maybe<TMaybe> maybe, Func<TMaybe, Maybe<TMaybe>> parentSelector, List<TFlatten> acc, Func<TMaybe, TFlatten> flattenSelector) where TMaybe : notnull
   {

@@ -220,7 +220,9 @@ internal class Examples
 
     }
     else
+    {
       Assert.Fail();
+    }
   }
 
   [Test]

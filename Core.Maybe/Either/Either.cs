@@ -1,4 +1,5 @@
 ﻿using System;
+using Core.NullableReferenceTypesExtensions;
 
 namespace Core.Either;
 
@@ -45,10 +46,15 @@ public readonly struct Either<TResult, TError>
   public T Match<T>(Func<TResult, T> resultFunc, Func<TError, T> errorFunc)
   {
     ArgumentNullException.ThrowIfNull(resultFunc);
-
     ArgumentNullException.ThrowIfNull(errorFunc);
-
-    return _success ? resultFunc(_resultValue!) : errorFunc(_errorValue!);
+    if (_success)
+    {
+      return resultFunc(_resultValue.OrThrow());
+    }
+    else
+    {
+      return errorFunc(_errorValue.OrThrow());
+    }
   }
 
   /// <summary>
@@ -72,11 +78,11 @@ public readonly struct Either<TResult, TError>
 
     if (_success)
     {
-      resultAction(_resultValue!);
+      resultAction(_resultValue.OrThrow());
     }
     else
     {
-      errorAction(_errorValue!);
+      errorAction(_errorValue.OrThrow());
     }
   }
 
@@ -86,7 +92,6 @@ public readonly struct Either<TResult, TError>
   public void Match(Action resultAction, Action errorAction)
   {
     ArgumentNullException.ThrowIfNull(resultAction);
-
     ArgumentNullException.ThrowIfNull(errorAction);
 
     if (_success)
@@ -99,14 +104,22 @@ public readonly struct Either<TResult, TError>
     }
   }
 
-  public TResult? ResultOrDefault() => Match<TResult?>(res => res, err => default);
-  public TError? ErrorOrDefault() => Match<TError?>(res => default, err => err);
+  public TResult? ResultOrDefault() =>
+    Match<TResult?>(res => res, err => default);
 
-  public TResult ResultOrDefault(TResult defaultValue) => Match(res => res, err => defaultValue);
-  public TError ErrorOrDefault(TError defaultValue) => Match(res => defaultValue, err => err);
+  public TError? ErrorOrDefault() =>
+    Match<TError?>(res => default, err => err);
 
-  public static implicit operator Either<TResult, TError>(TResult result) => Result(result);
-  public static implicit operator Either<TResult, TError>(TError error) => Error(error);
+  public TResult ResultOrDefault(TResult defaultValue) =>
+    Match(res => res, err => defaultValue);
+
+  public TError ErrorOrDefault(TError defaultValue) =>
+    Match(res => defaultValue, err => err);
+
+  public static implicit operator Either<TResult, TError>(TResult result)
+    => Result(result);
+  public static implicit operator Either<TResult, TError>(TError error)
+    => Error(error);
 }
 
 public static class EitherExtensions

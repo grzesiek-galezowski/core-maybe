@@ -16,16 +16,19 @@ public static class BasicNullableExtensions
   public static async Task<T> OrThrowAsync<T>(this Task<T?> instance, [CallerArgumentExpression(nameof(instance))] string callerArg = "")
     => (await instance).OrThrow(callerArg);
 
-  public static T OrThrow<T>(this T? instance, [CallerArgumentExpression(nameof(instance))] string callerArg = "") where T : struct
+  public static T OrThrow<T>(
+    this T? instance,
+    [CallerArgumentExpression(nameof(instance))] string callerArg = "") 
+    where T : struct
   {
-    try
+    if (instance.HasValue)
     {
-      return instance!.Value;
+      return instance.Value;
     }
-    catch (Exception ex)
+    else
     {
       throw new InvalidOperationException($"Could not convert the result of {{{callerArg}}} of type {typeof(T)}? " +
-                                          "to non-nullable struct because it is null", ex);
+                                          "to non-nullable struct because it is null");
     }
   }
 

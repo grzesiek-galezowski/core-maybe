@@ -14,7 +14,7 @@ public static class MaybeDictionary
   /// <returns></returns>
   public static Maybe<T> LookupNullable<TK, T>(this IDictionary<TK, T?> dictionary, TK key)
     where T : notnull
-    where TK : notnull => Lookup<TK, T, T>(dictionary!, key);
+    where TK : notnull => Lookup<TK, T?, T>(dictionary, key);
 
   /// <summary>
   /// Tries to get value from Dictionary safely
@@ -26,7 +26,7 @@ public static class MaybeDictionary
   /// <returns></returns>
   public static Maybe<T> Lookup<TK, T>(this IDictionary<TK, T> dictionary, TK key)
     where T : notnull
-    where TK : notnull => Lookup<TK, T, T>(dictionary!, key);
+    where TK : notnull => Lookup<TK, T, T>(dictionary, key);
 
   /// <summary>
   /// Tries to get value from Dictionary safely
