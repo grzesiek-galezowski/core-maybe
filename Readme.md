@@ -83,6 +83,32 @@ Task<int> two() => Task.FromResult(2);
 var onePlusTwo = await 1.ToMaybe().SelectAsync(async one => one + (await two()));
 Assert.AreEqual(3, onePlusTwo.Value());
 ```
+### Either and Result
+
+Use `Either<TLeft, TRight>` when you want a value that can hold one of two alternatives, such as a left/right branch:
+
+```cs
+using Core.Either;
+
+Either<string, int> either = "left".ToLeft<string, int>();
+
+var left = either.LeftOrDefault();
+var right = either.RightOrDefault();
+```
+
+Use `Result<TValue, TError>` when you want to model a success value or an error value:
+
+```cs
+using Core.Either;
+
+Result<int, string> result = 42.ToValue<int, string>();
+
+var value = result.ValueOrDefault();
+var error = result.ErrorOrDefault();
+```
+
+Construct values explicitly with `Either.Left(...)`, `Either.Right(...)`, `Result.Value(...)`, or `Result.Error(...)` when you want to be more explicit in your code.
+
 ### Extracting values
 
 Sometime you want to pull out a value with a default value in case of `Nothing`:

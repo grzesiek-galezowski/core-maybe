@@ -1,19 +1,19 @@
-﻿using Core.Either;
+using Core.Either;
 
 namespace Core.Maybe.Tests;
 
 [TestFixture]
 public class EitherTests
 {
-  private readonly Either<int, string> _eitherResult;
-  private readonly Either<int, string> _eitherError;
+  private readonly Either<int, string> _eitherLeft;
+  private readonly Either<int, string> _eitherRight;
   private const int EitherLeftValue = 5;
   private const string EitherRightValue = "Five";
 
   public EitherTests()
   {
-    _eitherResult = EitherLeftValue.ToResult<int, string>();
-    _eitherError = EitherRightValue.ToError<int, string>();
+    _eitherLeft = EitherLeftValue.ToLeft<int, string>();
+    _eitherRight = EitherRightValue.ToRight<int, string>();
   }
 #pragma warning disable 219
 
@@ -42,17 +42,17 @@ public class EitherTests
     }
 
     // ReSharper disable ExpressionIsAlwaysNull
-    AssertExtension.Throws<ArgumentNullException>(() => _eitherResult.Match(nullAction!, MockAction));
-    AssertExtension.Throws<ArgumentNullException>(() => _eitherResult.Match(MockAction, nullAction!));
-    _eitherResult.Match(MockAction, MockAction);
+    AssertExtension.Throws<ArgumentNullException>(() => _eitherLeft.Match(nullAction!, MockAction));
+    AssertExtension.Throws<ArgumentNullException>(() => _eitherLeft.Match(MockAction, nullAction!));
+    _eitherLeft.Match(MockAction, MockAction);
 
-    AssertExtension.Throws<ArgumentNullException>(() => _eitherError.Match(nullAction!, MockAction));
-    AssertExtension.Throws<ArgumentNullException>(() => _eitherError.Match(MockAction, nullAction!));
-    _eitherError.Match(MockAction, MockAction);
+    AssertExtension.Throws<ArgumentNullException>(() => _eitherRight.Match(nullAction!, MockAction));
+    AssertExtension.Throws<ArgumentNullException>(() => _eitherRight.Match(MockAction, nullAction!));
+    _eitherRight.Match(MockAction, MockAction);
 
-    AssertExtension.Throws<ArgumentNullException>(() => _eitherError.Match(nullActionInt!, MockActionString));
-    AssertExtension.Throws<ArgumentNullException>(() => _eitherError.Match(MockActionInt, nullActionString!));
-    _eitherResult.Match(MockActionInt, MockActionString);
+    AssertExtension.Throws<ArgumentNullException>(() => _eitherRight.Match(nullActionInt!, MockActionString));
+    AssertExtension.Throws<ArgumentNullException>(() => _eitherRight.Match(MockActionInt, nullActionString!));
+    _eitherLeft.Match(MockActionInt, MockActionString);
   }
 
   [Test]
@@ -77,22 +77,22 @@ public class EitherTests
     void SetTestInt(int value) => testInt = value;
     void SetTestString(string value) => testString = value;
 
-    _eitherResult.Match(SetBool1Action, SetBool2Action);
+    _eitherLeft.Match(SetBool1Action, SetBool2Action);
     bool1.Should().BeTrue();
     bool2.Should().BeFalse();
 
     ResetTestValues();
-    _eitherError.Match(SetBool1Action, SetBool2Action);
+    _eitherRight.Match(SetBool1Action, SetBool2Action);
     bool1.Should().BeFalse();
     bool2.Should().BeTrue();
 
     ResetTestValues();
-    _eitherResult.Match(SetTestInt, SetTestString);
+    _eitherLeft.Match(SetTestInt, SetTestString);
     testInt.Should().Be(EitherLeftValue);
     testString.Should().BeNull();
 
     ResetTestValues();
-    _eitherError.Match(SetTestInt, SetTestString);
+    _eitherRight.Match(SetTestInt, SetTestString);
     testInt.Should().Be(0);
     testString.Should().Be(EitherRightValue);
 
@@ -123,57 +123,57 @@ public class EitherTests
       return false;
     }
 
-    _eitherResult.Match(FuncTlt, FuncTrt).Should().BeTrue();
+    _eitherLeft.Match(FuncTlt, FuncTrt).Should().BeTrue();
     testInt.Should().Be(EitherLeftValue);
     testString.Should().BeNull();
 
     ResetTestValues();
-    _eitherError.Match(FuncTlt, FuncTrt).Should().BeFalse();
+    _eitherRight.Match(FuncTlt, FuncTrt).Should().BeFalse();
     testString.Should().Be(EitherRightValue);
     testInt.Should().Be(0);
 
     ResetTestValues();
-    _eitherResult.Match(() => true, () => false).Should().BeTrue();
-    _eitherError.Match(() => true, () => false).Should().BeFalse();
+    _eitherLeft.Match(() => true, () => false).Should().BeTrue();
+    _eitherRight.Match(() => true, () => false).Should().BeFalse();
   }
 
   [Test]
   public void OrDefaultFunctionsTests()
   {
-    _eitherResult.ResultOrDefault().Should().Be(EitherLeftValue);
-    _eitherError.ErrorOrDefault().Should().Be(EitherRightValue);
+    _eitherLeft.LeftOrDefault().Should().Be(EitherLeftValue);
+    _eitherRight.RightOrDefault().Should().Be(EitherRightValue);
 
-    _eitherError.ResultOrDefault().Should().Be(0);
-    _eitherResult.ErrorOrDefault().Should().Be(default);
+    _eitherRight.LeftOrDefault().Should().Be(0);
+    _eitherLeft.RightOrDefault().Should().Be(default);
 
-    _eitherError.ResultOrDefault(29).Should().Be(29);
-    _eitherResult.ErrorOrDefault("Twenty nine").Should().Be("Twenty nine");
+    _eitherRight.LeftOrDefault(29).Should().Be(29);
+    _eitherLeft.RightOrDefault("Twenty nine").Should().Be("Twenty nine");
   }
 
   [Test]
-  public void SameTResultTErrorTests()
+  public void SameTLeftTRightTests()
   {
-    var eitherResult = Either<string, string>.Result("Left defined");
-    var eitherError = Either<string, string>.Error("Right defined");
+    var eitherLeft = Either<string, string>.Left("Left defined");
+    var eitherRight = Either<string, string>.Right("Right defined");
 
-    eitherResult.ResultOrDefault().Should().Be("Left defined");
-    eitherError.ErrorOrDefault().Should().Be("Right defined");
+    eitherLeft.LeftOrDefault().Should().Be("Left defined");
+    eitherRight.RightOrDefault().Should().Be("Right defined");
 
-    eitherError.ResultOrDefault().Should().BeNull();
-    eitherResult.ErrorOrDefault().Should().BeNull();
+    eitherRight.LeftOrDefault().Should().BeNull();
+    eitherLeft.RightOrDefault().Should().BeNull();
   }
 
   [Test]
   public void ExtensionMethodTests()
   {
-    var eitherResult = 29.ToResult<int, string>();
-    var eitherError = "Twenty nine".ToError<int, string>();
+    var eitherLeft = 29.ToLeft<int, string>();
+    var eitherRight = "Twenty nine".ToRight<int, string>();
 
-    eitherResult.ResultOrDefault().Should().Be(29);
-    eitherResult.ErrorOrDefault().Should().BeNull();
+    eitherLeft.LeftOrDefault().Should().Be(29);
+    eitherLeft.RightOrDefault().Should().BeNull();
 
-    eitherError.ErrorOrDefault().Should().Be("Twenty nine");
-    eitherError.ResultOrDefault().Should().Be(0);
+    eitherRight.RightOrDefault().Should().Be("Twenty nine");
+    eitherRight.LeftOrDefault().Should().Be(0);
   }
 }
 
