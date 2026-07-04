@@ -2,24 +2,24 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <WarningsAsErrors>nullable</WarningsAsErrors>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AtmaFileSystem" Version="6.1.0" />
-    <PackageReference Include="Bullseye" Version="5.0.0" />
+    <PackageReference Include="AtmaFileSystem" Version="8.1.1" />
+    <PackageReference Include="Bullseye" Version="6.1.0" />
     <PackageReference Include="DotnetExeCommandLineBuilder" Version="0.3.0" />
-    <PackageReference Include="FluentAssertions" Version="6.12.0" />
-    <PackageReference Include="NScan" Version="0.201.0" />
-    <PackageReference Include="NScan.Adapters.Secondary" Version="0.201.0" />
-    <PackageReference Include="Nullable.Extended.Analyzer" Version="1.15.6169">
+    <PackageReference Include="AwesomeAssertions" Version="9.4.0" />
+    <PackageReference Include="NScan" Version="0.400.0" />
+    <PackageReference Include="NScan.Adapters.Secondary" Version="0.400.0" />
+    <PackageReference Include="Nullable.Extended.Analyzer" Version="1.15.6581">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="SimpleExec" Version="12.0.0" />
+    <PackageReference Include="SimpleExec" Version="13.0.0" />
   </ItemGroup>
 
 </Project>

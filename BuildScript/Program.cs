@@ -1,7 +1,7 @@
 ﻿using AtmaFileSystem;
 using AtmaFileSystem.IO;
+using AwesomeAssertions;
 using BuildScript;
-using FluentAssertions;
 using NScan.Adapters.Secondary.NotifyingSupport;
 using TddXt.NScan;
 using static Bullseye.Targets;
@@ -40,7 +40,7 @@ Target("Build", () =>
 
 });
 
-Target("NScan", DependsOn("Build"), () =>
+Target("NScan", dependsOn: ["Build"], () =>
 {
   NScanMain.Run(
     new InputArgumentsDto
@@ -53,7 +53,7 @@ Target("NScan", DependsOn("Build"), () =>
   ).Should().Be(0);
 });
 
-Target("Test", DependsOn("NScan"), () =>
+Target("Test", dependsOn: ["NScan"], () =>
 {
   Run("dotnet",
     Test()
@@ -63,7 +63,7 @@ Target("Test", DependsOn("NScan"), () =>
     workingDirectory: root.ToString());
 });
 
-Target("Pack", DependsOn("Clean", "Test"), () =>
+Target("Pack", dependsOn: ["Clean", "Test"], () =>
 {
   Run("dotnet", Pack()
       .NoBuild()
@@ -73,7 +73,7 @@ Target("Pack", DependsOn("Clean", "Test"), () =>
       workingDirectory: root.ToString());
 });
 
-Target("Push", DependsOn("Pack"), () =>
+Target("Push", dependsOn: ["Pack"], () =>
 {
   foreach (var nupkgPath in nugetPath.GetFiles("*.nupkg"))
   {
@@ -81,6 +81,6 @@ Target("Push", DependsOn("Pack"), () =>
   }
 });
 
-Target("default", DependsOn("Test"));
+Target("default", dependsOn: ["Test"]);
 
 await RunTargetsAndExitAsync(args);
