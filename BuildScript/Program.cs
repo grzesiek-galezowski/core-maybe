@@ -55,8 +55,9 @@ Target("NScan", dependsOn: ["Build"], () =>
 
 Target("Test", dependsOn: ["NScan"], () =>
 {
-  Run("dotnet",
-    Test()
+  Run(
+    "dotnet",
+    Test("Core.Maybe.NTests/Core.Maybe.NTests.csproj")
       .NoBuild()
       .Configuration(configuration)
       .WithArg($"-p:VersionPrefix={version}"),
